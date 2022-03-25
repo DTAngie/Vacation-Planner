@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 
+require('./config/database');
+
 const app = express();
 
 // add in when the app is ready to be deployed
@@ -15,6 +17,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 // app.use(require('./config/auth')); 
 
 //Routes
+// app.use('/api/getContent', require('./routes/api/content'));
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
