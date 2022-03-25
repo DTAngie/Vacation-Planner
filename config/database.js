@@ -13,6 +13,4 @@ postgres.connect((err, client) => {
     return console.log(err)
   }
   console.log(`Connected to Postgres at ${client.host}:${client.port}`);
-})
-
-// module.exports = postgres;
+});

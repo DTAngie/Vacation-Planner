@@ -1,0 +1,22 @@
+.header {
+  margin: 0;
+  background-color: rgb(131, 177, 161);
+  padding: 20px 30px;
+}
+
+.header h1, .header ul {
+  display: inline-block;
+}
+
+.header ul {
+  margin-left: 40px;
+}
+
+.header ul li {
+  list-style: none;
+  display: inline;
+}
+
+.header a {
+  color: rgb(231 231 247);
+}
