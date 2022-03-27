@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function SignupPage(props){
+  const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
   function handleChange(e){
     setForm({
@@ -36,10 +36,12 @@ export default function SignupPage(props){
 
   return(
     <div className='main'>
+      {error ? error : ""} 
+      {/* TODO: Put this into a component */}
       <form onSubmit={handleSubmit} >
         {/* <input type="text" name="id" onChange={handleChange}/> */}
         <input type="text" name="email" onChange={handleChange}/>
-        <input type="text" name="password" onChange={handleChange}/>
+        <input type="password" name="password" onChange={handleChange}/>
         <input type="text" name="profile" onChange={handleChange}/>
         <button type="submit">Sign up</button>
       </form>
