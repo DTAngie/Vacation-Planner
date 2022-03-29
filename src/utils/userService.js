@@ -10,7 +10,6 @@ function signup(user){
     body: JSON.stringify(user)
   })
   .then(res => {
-    console.log(res.ok)
     if (res.ok) return res.json();
     throw new Error('Email already taken!');
   })

@@ -1,5 +1,5 @@
 const User = require('../models/user');
-const { v4: uuidv4 } = require('uuid');
+const Profile = require('../models/profile');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -11,24 +11,24 @@ module.exports = {
 }
 
 async function signup(req, res){
-  const user = User.build(req.body);
+// TODO: get rid of profile in parameters
   try {
-    const hashedPassword = await bcrypt.hash(user.password, SALT_ROUNDS);
-    user.password = hashedPassword;
-    user.save().then(user =>{
-      const token = createJWT(user);
-      res.json({token});
-    }).catch((err) => {
-      res.status(400).json(err);  
-    });
+    const { email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    const user = await User.create({email: email, password: hashedPassword});
+    const profile = await Profile.create({owner: user.id});
+    const token = createJWT(user);
+    res.json({token});
   } catch(err) {
+    console.log('second err', err)
     res.status(400).json(err);
   }
 }
 
 async function login(req, res) {
   try {
-    const user = await User.findOne({where:{email: req.body.email}});
+    const user = await User.findOne({where:{email: req.body.email}, include: Profile});
+    console.log('user is', user)
     if (!user) return res.status(401).json({err: 'bad credentials'});
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (isMatch) {

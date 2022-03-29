@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Profile = require('../models/profile');
 const bcrypt = require('bcrypt');
 
 const User = sequelize.define('users', {
@@ -17,10 +18,6 @@ const User = sequelize.define('users', {
   password: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  profile: {
-    type:DataTypes.INTEGER,
-    allowNull: false
   }
 }, {
   sequelize,
@@ -34,5 +31,37 @@ User.prototype.comparePassword = function (tryPassword, cb){
     cb(null, isMatch);
   });
 }
+
+User.prototype.toJSON = function() {
+  let thisUser = Object.assign({}, this.get());
+  delete thisUser.password;
+  return thisUser;
+}
+
+User.prototype.toObject = function() {
+  let thisUser = Object.assign({}, this.get());
+  delete thisUser.password;
+  return thisUser;
+}
+
+// User.prototype.createOne = async function(data) {
+//   console.log('this is the create one function')
+//   let newUser = User.build(data);
+//   console.log('new user', newUser)
+//   try {
+//     const hashedPassword = await bcrypt.hash(newUser.password, SALT_ROUNDS);
+//     newUser.password = hashedPassword;
+//     newUser.save().then(newUser =>{
+//       console.log('new user in save function', newUser)
+//       return newUser;
+//     }).catch((err) => {
+//       return err;  
+//     });
+//   } catch(err) {
+//    return err;
+//   }
+// }
+
+User.hasOne(Profile, {foreignKey: 'owner'});
 
 module.exports = User;
