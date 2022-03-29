@@ -1,0 +1,19 @@
+.SignupForm {
+  width: 80%;
+  margin: 0 10%;
+}
+.SignupForm input, .SignupForm label {
+  display: block;
+}
+
+.SignupForm input {
+  margin-bottom: 10px;;
+}
+
+.SignupForm label {
+  margin-bottom: 5px;
+}
+
+.SignupForm h2 {
+  margin: 0 10%;
+}

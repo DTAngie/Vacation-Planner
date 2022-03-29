@@ -2,6 +2,8 @@
   margin: 0;
   background-color: rgb(131, 177, 161);
   padding: 20px 30px;
+  box-shadow: inset 15px -15px 29px #6f9689,
+  inset -15px 15px 29px #97ccb9;
 }
 
 .header h1, .header ul {

@@ -1,39 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import userService from "../../utils/userService";
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import LoginForm from '../../components/LoginForm/LoginForm';
+import './LoginPage.css';
 
 export default function LoginPage(props){
-  const navigate = useNavigate();
-  const [form, setForm] = useState({})
   const [error, setError] = useState('');
 
-  function handleChange(e){
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-  }
-
-  async function handleSubmit(e){
-    e.preventDefault();
-
-    try {
-      await userService.login(form);
-      props.handleSignUpOrLogin();
-      navigate('/dashboard');
-    } catch(error){
-      setError(error.message);
-    }
+  function getError(err){
+    setError(err);
   }
 
   return (
-    <div className="main">
-      { error ? error.message : " "}
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="email" onChange={handleChange} />
-        <input type="password" name="password" onChange={handleChange} />
-        <button type="submit">Submit</button>
-      </form>
+    <div className="main LoginPage">
+      <h2>Sign up</h2>
+      {error ? <ErrorMessage error={error} /> : ""}
+      <LoginForm getError={getError} handleSignUpOrLogin={props.handleSignUpOrLogin} />
+      
     </div>
   );
 }

@@ -1,0 +1,10 @@
+.ErrorMessage {
+  color: white;
+  background-color: red;
+  border-radius: 2px;
+  width: 200px;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px 20px;
+}
+

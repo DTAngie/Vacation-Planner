@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 function App() {
   const [user, setUser] = useState(userService.getUser());
 
+
   function handleSignUpOrLogin(){
     setUser(userService.getUser());
   }

@@ -1,50 +1,21 @@
-import React, { useState } from 'react';
-import userService from '../../utils/userService';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import SignupForm from '../../components/SignupForm/SignupForm';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import './SignupPage.css';
 
 
 export default function SignupPage(props){
-  const navigate = useNavigate();
-  const [form, setForm] = useState({});
   const [error, setError] = useState('');
 
-  function handleChange(e){
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-  }
-
-  async function handleSubmit(e){
-    e.preventDefault();
-    const formData = new FormData();
-    console.log('handlesubmit')
-
-    for (let val in form) {
-      formData.append(val, form[val])
-    }
-    
-    try {
-      const user = await userService.signup(form)
-      props.handleSignUpOrLogin();
-      navigate('/dashboard');
-    } catch(error) {
-      setError(error.message);
-    }
-
+  function getError(err){
+    setError(err);
   }
 
   return(
-    <div className='main'>
-      {error ? error : ""} 
-      {/* TODO: Put this into a component */}
-      <form onSubmit={handleSubmit} >
-        {/* <input type="text" name="id" onChange={handleChange}/> */}
-        <input type="text" name="email" onChange={handleChange}/>
-        <input type="password" name="password" onChange={handleChange}/>
-        <input type="text" name="profile" onChange={handleChange}/>
-        <button type="submit">Sign up</button>
-      </form>
+    <div className='main SignupPage'>
+      <h2>Sign up</h2>
+      {error ? <ErrorMessage error={error} /> : ""}
+      <SignupForm getError={getError} handleSignUpOrLogin={props.handleSignUpOrLogin} />
     </div>
   );
 }

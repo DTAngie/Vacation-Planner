@@ -1,0 +1,19 @@
+.LoginForm {
+  width: 80%;
+  margin: 0 10%;
+}
+.LoginForm input, .LoginForm label {
+  display: block;
+}
+
+.LoginForm input {
+  margin-bottom: 10px;;
+}
+
+.LoginForm label {
+  margin-bottom: 5px;
+}
+
+.LoginForm h2 {
+  margin: 0 10%;
+}

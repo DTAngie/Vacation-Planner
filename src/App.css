@@ -1,6 +1,9 @@
 .App {
   /* text-align: center; */
 }
+h2 {
+  margin-bottom: 20px;
+}
 
 a {
   text-decoration: none;
@@ -8,6 +11,42 @@ a {
   color: #272727;
   font-size: 1.2rem;
 }
+
+button {
+  cursor: pointer;
+  color: rgb(221, 220, 220);
+  margin: 10px 0;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  background: #83b1a1;
+  box-shadow: inset 3px -3px 6px #6f9689,
+              inset -3px 3px 6px #97ccb9;
+}
+
+button:active {
+  box-shadow: inset -3px 3px 6px #6f9689,
+              inset 3px -3px 6px #97ccb9;
+}
+
+button:disabled {
+  color: white;
+  background: #a2aaa7;
+  box-shadow: inset 3px -3px 6px #959998,
+              inset -3px 3px 6px #d9e0de;
+}
+
+form input {
+  padding: 3px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  box-shadow: 2px 2px 4px rgba(0,0,0, 0.3);
+}
+
+.main {
+  padding: 50px 20px;
+}
+
 /* 
 .App-logo {
   height: 40vmin;
