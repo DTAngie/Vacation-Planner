@@ -8,6 +8,7 @@ import './App.css';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 
+
 function App() {
   const [user, setUser] = useState(userService.getUser());
 
@@ -28,7 +29,8 @@ function App() {
           <Route path="/" element={<FrontPage />} />
           <Route path="/signup" element={<SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
           <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
-          <Route path="/dashboard" element={user ? <DashboardPage user={user} /> : <Navigate to="/login" />} />        
+          <Route path="/dashboard" element={user ? <DashboardPage user={user} /> : <Navigate to="/login" />} />
+          <Route path="/vacations/new" element={user ? <VacationFormPage /> : <Navigate to="/login" />} />
         </Routes>
       
       
