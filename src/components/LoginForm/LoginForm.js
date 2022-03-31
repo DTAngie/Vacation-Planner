@@ -34,7 +34,7 @@ export default function LoginForm(props){
     } else {
       setInvalidForm(true);
     }
-  }, [form])
+  }, [form]);
 
   return(
     <form className="LoginForm" onSubmit={handleSubmit}>

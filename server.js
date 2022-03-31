@@ -8,6 +8,7 @@ const logger = require('morgan');
 const app = express();
 
 const userRouter = require('./routes/api/users');
+const vacationRouter = require('./routes/api/vacations');
 
 // add in when the app is ready to be deployed
 // app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
@@ -16,8 +17,9 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-// app.use(require('./config/auth')); 
+app.use(require('./config/auth')); 
 app.use('/api/users', userRouter);
+app.use('/api/vacations', vacationRouter);
 
 //Routes
 // app.use('/api/getContent', require('./routes/api/content'));

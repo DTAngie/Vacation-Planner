@@ -1,7 +1,9 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Vacation = require('./vacation');
+const ProfileVacation = require('./profilesVacations');
 
-const Profile = sequelize.define('profiles', {
+const Profile = sequelize.define('profile', {
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -21,5 +23,8 @@ const Profile = sequelize.define('profiles', {
   sequelize,
   modelName: 'profile'
 });
+
+Profile.belongsToMany(Vacation, {through: ProfileVacation, foreignKey: 'profile'})
+Vacation.belongsToMany(Profile, {through: ProfileVacation, foreignKey: 'vacation'});
 
 module.exports = Profile;

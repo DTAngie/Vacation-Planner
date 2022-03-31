@@ -40,7 +40,7 @@ export default function SignupForm(props) {
     } else {
       setInvalidForm(true);
     }
-  }, [form])
+  }, [form]);
 
   return(
     <form className="SignupForm" onSubmit={handleSubmit} >

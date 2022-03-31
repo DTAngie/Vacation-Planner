@@ -7,6 +7,7 @@ import userService from './utils/userService';
 import './App.css';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import LoginPage from './pages/LoginPage/LoginPage';
+import VacationFormPage from './pages/VacationFormPage/VacationFormPage';
 
 
 function App() {

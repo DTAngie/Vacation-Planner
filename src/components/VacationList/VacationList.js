@@ -3,7 +3,7 @@ import './VacationList.css';
 
 export default function VacationList(){
   return (
-    <div className='VacationList'>
+    <div className='content VacationList'>
       Vacations go here
     </div>
   );

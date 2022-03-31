@@ -1,9 +1,9 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Profile = require('../models/profile');
+const Profile = require('./profile');
 const bcrypt = require('bcrypt');
 
-const User = sequelize.define('users', {
+const User = sequelize.define('user', {
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -44,23 +44,6 @@ User.prototype.toObject = function() {
   return thisUser;
 }
 
-// User.prototype.createOne = async function(data) {
-//   console.log('this is the create one function')
-//   let newUser = User.build(data);
-//   console.log('new user', newUser)
-//   try {
-//     const hashedPassword = await bcrypt.hash(newUser.password, SALT_ROUNDS);
-//     newUser.password = hashedPassword;
-//     newUser.save().then(newUser =>{
-//       console.log('new user in save function', newUser)
-//       return newUser;
-//     }).catch((err) => {
-//       return err;  
-//     });
-//   } catch(err) {
-//    return err;
-//   }
-// }
 
 User.hasOne(Profile, {foreignKey: 'owner'});
 
