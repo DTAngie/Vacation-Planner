@@ -10,19 +10,20 @@ export default function VacationForm (){
   
 
   function handleChange(e){
-    e.preventDefault();
     setForm({
       ...form,
       [e.target.name]: e.target.value
     });
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
+    e.preventDefault();
     const vacation = await vacationService.create(form);
-    console.log('vacation', vacation);
+    console.log('vacation', vacation)
+    navigate('/dashboard');
 
   }
-  
+
   useEffect(()=> {
     if(form.name) {
       setInvalidForm(false)

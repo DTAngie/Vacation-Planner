@@ -11,7 +11,9 @@ function create(vacation){
     method: 'POST',
     body: JSON.stringify(vacation)
   })
-  .then(res =>  res.json())
+  .then(res =>  {
+    res.json()
+  })
 }
 
 export default {

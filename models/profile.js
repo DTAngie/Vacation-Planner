@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Vacation = require('./vacation');
+// const Vacation = sequelize.models.Vacation;
 const ProfileVacation = require('./profilesVacations');
 
 const Profile = sequelize.define('profile', {
@@ -24,7 +25,10 @@ const Profile = sequelize.define('profile', {
   modelName: 'profile'
 });
 
-Profile.belongsToMany(Vacation, {through: ProfileVacation, foreignKey: 'profile'})
-Vacation.belongsToMany(Profile, {through: ProfileVacation, foreignKey: 'vacation'});
+console.log('here')
+console.log(Sequelize.Model)
+// console.log(Vacation)
+// Profile.belongsToMany(Vacation, {through: ProfileVacation, foreignKey: 'profile'})
+// Vacation.belongsToMany(Profile, {through: ProfileVacation, foreignKey: 'vacation'});
 
 module.exports = Profile;
