@@ -25,10 +25,5 @@ const Profile = sequelize.define('profile', {
   modelName: 'profile'
 });
 
-console.log('here')
-console.log(Sequelize.Model)
-// console.log(Vacation)
-// Profile.belongsToMany(Vacation, {through: ProfileVacation, foreignKey: 'profile'})
-// Vacation.belongsToMany(Profile, {through: ProfileVacation, foreignKey: 'vacation'});
 
 module.exports = Profile;

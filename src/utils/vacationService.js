@@ -11,11 +11,22 @@ function create(vacation){
     method: 'POST',
     body: JSON.stringify(vacation)
   })
-  .then(res =>  {
-    res.json()
+  .then(res => res.json())
+}
+
+function getVacations(id){
+  return fetch(`${BASE_URL}${id}`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+      // 'Content-Type': 'application/json'
+    }
+    // body: JSON.stringify(vacation)
+    // body: profileID
   })
+  .then(res => res.json())
 }
 
 export default {
-  create
+  create,
+  getVacations
 }

@@ -6,7 +6,8 @@ const User = require('../models/user');
 // const {Profile, Vacation } = require('../config/database');
 
 module.exports = {
-  create
+  create,
+  getVacationsByUser
 }
 
 async function create(req, res) {
@@ -17,8 +18,21 @@ async function create(req, res) {
     const vacation = await Vacation.create({name: name, budget: budget, passportRequired: passportRequired});
     const user = await User.findOne({where:{id: req.user.id}, include: Profile});
     vacation.addProfile(user.profile);
-    res.status(200).json({});
+    res.status(200).json({}); 
+    // TODO do this need a status?
   } catch (err) {
     res.status(400).json(err);
   }
+}
+
+async function getVacationsByUser(req, res){
+  try {
+    const user = await User.findOne({where: {id: req.user.id}, include: Profile});
+    const vacations = await user.profile.getVacations(); 
+    // TODO: drop this table and see if it works with no data
+    res.json(vacations);
+  } catch (err){
+    res.status(400).json(err);
+  }
+  
 }

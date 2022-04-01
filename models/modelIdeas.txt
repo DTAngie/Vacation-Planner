@@ -1,0 +1,87 @@
+models:
+user {
+  id
+  email
+  password
+}
+profile {
+  id
+  username
+}
+vacation{
+  segment // will be one to many
+  budget
+  passportRequired
+}
+
+segment {
+  city
+  state
+  country
+  dailyItinerary //one to many per day
+  segmentCost // sum of all itinerarys
+}
+
+dailyItinerary {
+  day //this will be an integer
+  activity //many to many
+  address
+  cost
+  ticketsPurchased //boolean
+}
+
+
+
+CREATE TABLE users (
+  id UUID PRIMARY KEY,
+  email varchar(100) UNIQUE NOT NULL,
+  password varchar(100) NOT NULL,
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE profiles (
+  id UUID PRIMARY KEY,
+  username varchar(100),
+  owner UUID references users(id),
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE vacations (
+  id UUID PRIMARY KEY,
+  name varchar(100) NOT NULL,
+  budget numeric(11, 2),
+  "passportRequired" boolean,
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE segments (
+  id UUID PRIMARY KEY,
+  city varchar(100) NOT NULL,
+  state varchar(3),
+  country varchar(100),
+  segmentCost numeric(11,2),
+  vacation UUID references vacations(id),
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE itineraries (
+  id UUID PRIMARY KEY,
+  date date NOT NULL,
+  time time,
+  address varchar(200),
+  cost numeric(11, 2),
+  ticketsPurchased boolean,
+  segment UUID references segments(id),
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE profiles_vacations (
+  vacation UUID references vacations(id),
+  profile UUID references profiles(id),
+  "isOwner" boolean
+);

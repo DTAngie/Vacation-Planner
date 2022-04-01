@@ -1,3 +1,17 @@
-.VacationList {
-  /* padding: 30px 10px 20px; */
+.VacationList.content {
+  /* padding-left: 10px; */
+}
+
+.VacationList .card {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 2px rgba(131, 177, 161, 0.5);
+  border-radius: 5px;
+  padding: 25px 30px;
+  margin: 25px 0;
+  width: 70%;
+}
+
+.VacationList .card h3 {
+  color: #5676b3;
+  margin-bottom: 5px;
 }

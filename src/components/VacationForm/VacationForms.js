@@ -19,7 +19,6 @@ export default function VacationForm (){
   async function handleSubmit(e) {
     e.preventDefault();
     const vacation = await vacationService.create(form);
-    console.log('vacation', vacation)
     navigate('/dashboard');
 
   }

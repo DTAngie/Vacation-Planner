@@ -59,6 +59,3 @@ module.exports = db;
 // db.Sequelize = Sequelize;
 // module.exports = {sayHello}
 // // module.exports = db;
-// function sayHello(){
-//   console.log('hello');
-// }
