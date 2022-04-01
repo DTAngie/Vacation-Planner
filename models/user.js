@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-// const {sequelize} = require('./index');
 const Profile = require('./profile');
 const bcrypt = require('bcrypt');
 
@@ -46,6 +45,6 @@ User.prototype.toObject = function() {
 }
 
 
-User.hasOne(Profile, {foreignKey: 'owner'});
+
 
 module.exports = User;

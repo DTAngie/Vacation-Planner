@@ -1,11 +1,17 @@
+const User = require('./user');
 const Profile = require('./profile');
 const Vacation = require('./vacation');
 const ProfileVacation = require('./profilesVacations');
 
+/*** Associations ***/
+User.hasOne(Profile, {foreignKey: 'owner'});
 Profile.belongsToMany(Vacation, {through: ProfileVacation, foreignKey: 'profile'});
 Vacation.belongsToMany(Profile, {through: ProfileVacation, foreignKey: 'vacation'});
 
+/*******/
+
 let db = {};
+db.User = User;
 db.Profile = Profile;
 db.Vacation = Vacation;
 db.ProfileVacation = ProfileVacation;

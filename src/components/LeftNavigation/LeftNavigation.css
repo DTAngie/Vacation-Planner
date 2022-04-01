@@ -1,4 +1,6 @@
 .LeftNavigation {
   border: 1px solid #ccc;
   padding: 20px 10px;
+  box-shadow: 1px 1px 4px 2px rgba(131, 177, 161, 0.5);
+  border-radius: 5px;
 }

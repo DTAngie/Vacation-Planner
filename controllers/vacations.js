@@ -1,13 +1,14 @@
 // const Vacation = require('../models/vacation');
 // const Profile = require('../models/profile');
-const { Profile, Vacation, ProfileVacation } = require('../models/index')
-const User = require('../models/user');
+const { User, Profile, Vacation, ProfileVacation } = require('../models/index')
+// const User = require('../models/user');
 // const ProfileVacations = ('../models/profilesVacations');
 // const {Profile, Vacation } = require('../config/database');
 
 module.exports = {
   create,
-  getVacationsByUser
+  getVacationsByUser,
+  getOne
 }
 
 async function create(req, res) {
@@ -34,5 +35,20 @@ async function getVacationsByUser(req, res){
   } catch (err){
     res.status(400).json(err);
   }
-  
+}
+
+
+//TODO: will this actually be used? 
+async function getOne(req, res){
+  const profileId = req.user.profile.id;
+  try {
+    const vacation = await Vacation.findOne({where: {id: req.params.id}, include: Profile});
+    if(vacation.profiles.some(profile => profile === profileId)) {
+      res.json(vacation);
+    } else {
+      res.status(400).json('Access Denied');
+    }
+  } catch(err){
+    res.status(400).json(err);
+  }
 }

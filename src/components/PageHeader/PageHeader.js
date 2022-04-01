@@ -13,9 +13,14 @@ export default function PageHeader({isLoggedIn, handleLogout}) {
           <Link to="/">Home</Link>
         </li>
         { isLoggedIn ? 
-        <li>
-          <Link to="" onClick={handleLogout}>Log out</Link>
-        </li>
+        <>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li>
+            <Link to="" onClick={handleLogout}>Log out</Link>
+          </li>
+        </>
         :
         <>
           <li>

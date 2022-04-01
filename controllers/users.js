@@ -1,5 +1,6 @@
-const User = require('../models/user');
-const Profile = require('../models/profile');
+const { User, Profile } = require('../models/index')
+// const User = require('../models/index');
+// const Profile = require('../models/profile');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 

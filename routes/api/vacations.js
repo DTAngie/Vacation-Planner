@@ -3,6 +3,7 @@ const router = express.Router();
 const vacationsCtrl = require('../../controllers/vacations');
 
 router.post('/', vacationsCtrl.create);
-router.get('/:id', vacationsCtrl.getVacationsByUser);
+router.get('/', vacationsCtrl.getVacationsByUser);
+router.get('/:id', vacationsCtrl.getOne);
 
 module.exports = router

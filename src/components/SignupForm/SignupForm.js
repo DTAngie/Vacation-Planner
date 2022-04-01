@@ -25,7 +25,7 @@ export default function SignupForm(props) {
     }
     
     try {
-      const user = await userService.signup(form)
+      await userService.signup(form)
       props.handleSignUpOrLogin();
       navigate('/dashboard');
     } catch(error) {
@@ -45,11 +45,11 @@ export default function SignupForm(props) {
   return(
     <form className="SignupForm" onSubmit={handleSubmit} >
       <label htmlFor="email">Email Address</label>
-      <input type="email" name="email" placeholder="email" onChange={handleChange} required />
+      <input type="email" name="email" id="email" placeholder="email" onChange={handleChange} required />
       <label htmlFor="password">Password</label>
-      <input type="password" name="password" placeholder="password" onChange={handleChange} required />
+      <input type="password" name="password" id="password" placeholder="password" onChange={handleChange} required />
       <label htmlFor="passwordConf">Confirm password</label>
-      <input type="password" name="passwordConf" placeholder="confirm password" onChange={handleChange} required />
+      <input type="password" name="passwordConf" id="passwordConf" placeholder="confirm password" onChange={handleChange} required />
       <button disabled={invalidForm} type="submit">Sign up</button>
     </form>
   );

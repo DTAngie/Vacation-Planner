@@ -15,18 +15,25 @@ function create(vacation){
 }
 
 function getVacations(id){
+  return fetch(`${BASE_URL}`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+    }
+  })
+  .then(res => res.json())
+}
+
+function getOne(id) {
   return fetch(`${BASE_URL}${id}`, {
     headers: {
       'Authorization': 'Bearer ' + tokenService.getToken(),
-      // 'Content-Type': 'application/json'
     }
-    // body: JSON.stringify(vacation)
-    // body: profileID
   })
   .then(res => res.json())
 }
 
 export default {
   create,
-  getVacations
+  getVacations,
+  getOne
 }

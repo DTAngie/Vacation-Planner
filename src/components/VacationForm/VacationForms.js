@@ -5,7 +5,7 @@ import vacationService from '../../utils/vacationService';
 
 export default function VacationForm (){
   const navigate = useNavigate();
-  const [form, setForm] = useState({passportRequired: false}); //change this to reflect vacation instance, if passed in
+  const [form, setForm] = useState({passportRequired: false}); //TODO: change this to reflect vacation instance, if passed in
   const [invalidForm, setInvalidForm] = useState(true);
   
 
@@ -18,7 +18,7 @@ export default function VacationForm (){
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const vacation = await vacationService.create(form);
+    await vacationService.create(form);
     navigate('/dashboard');
 
   }
@@ -34,9 +34,12 @@ export default function VacationForm (){
   return(
     <div className="content VacationForm">
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Vacation Nickname" onChange={handleChange} />
-        <input type="number" name="budget" step="0.01" min="0" placeholder="Budget" onChange={handleChange} />
-        <input type="checkbox" name="passportRequired" onChange={handleChange} />
+        <label htmlFor="name">Vacation Nickname</label>
+        <input type="text" name="name" id="name" placeholder="Vacation Nickname" onChange={handleChange} />
+        <label for="budget">Budget</label>
+        <input type="number" name="budget" id="budget" step="0.01" min="0" placeholder="Budget" onChange={handleChange} />
+        <label for="passport">Passport Required?</label>
+        <input type="checkbox" name="passportRequired" id="passport" onChange={handleChange} />
         <button disabled={invalidForm} type="submit">Add New Vacation</button>
       </form>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import vacationService from '../../utils/vacationService';
 import './VacationList.css';
 
@@ -22,18 +22,24 @@ export default function VacationList({user}){
   },[]);
 
   return (
-    <div className='content VacationList'>
+    <>
       {vacations ?
         vacations.map(vacation => (
-          <div className='card'>
+          <div className='card' key={vacation.id}>
             <h3>{vacation.name}</h3>
-            <p>Budget: {vacation.budget}</p>
-            <p>Passport Needed? {vacation.passportRequired ? 'Yes' : 'No'}</p>
+            <div className='left'>
+              <p>Budget: {vacation.budget}</p>
+              <p>Passport Needed? {vacation.passportRequired ? 'Yes' : 'No'}</p>
+            </div>
+            <div className='right'>
+              <p><Link to="/">View Segments</Link></p>
+              <p><Link to={`/vacations/${vacation.id}`} state={{vacation}}>Add Segment</Link></p>
+            </div>
           </div>
         ))
       :
         ""
       }
-    </div>
+    </>
   );
 }

@@ -14,14 +14,14 @@ const Vacation = sequelize.define('vacation', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  budget: DataTypes.DECIMAL(11,2),
-  passportRequired: DataTypes.INTEGER
+  budget: {
+    type: DataTypes.DECIMAL(11,2),
+    min: 0
+  },
+  passportRequired: DataTypes.BOOLEAN
 }, {
   sequelize,
   modelName: 'vacation'
 });
-
-// Profile.belongsToMany(Vacation, {through: ProfileVacation, foreignKey: 'profile'})
-// Vacation.belongsToMany(sequelize.models.profile, {through: ProfileVacation, foreignKey: 'vacation'});
 
 module.exports = Vacation;

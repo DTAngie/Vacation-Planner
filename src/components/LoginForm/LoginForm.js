@@ -39,9 +39,9 @@ export default function LoginForm(props){
   return(
     <form className="LoginForm" onSubmit={handleSubmit}>
       <label htmlFor="email">Email Address</label>
-      <input type="email" name="email" placeholder="email" onChange={handleChange} reequired />
+      <input type="email" name="email" id="email" placeholder="email" onChange={handleChange} required />
       <label htmlFor="password">Password</label>
-      <input type="password" name="password" placeholder="password" onChange={handleChange} required />
+      <input type="password" name="password" id="password" placeholder="password" onChange={handleChange} required />
       <button disabled={invalidForm} type="submit">Submit</button>
     </form>
   );
