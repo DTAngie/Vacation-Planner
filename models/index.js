@@ -2,6 +2,7 @@ const User = require('./user');
 const Profile = require('./profile');
 const Vacation = require('./vacation');
 const ProfileVacation = require('./profilesVacations');
+const Segment = require('./segment');
 
 /*** Associations ***/
 User.hasOne(Profile, {foreignKey: 'owner'});
@@ -15,6 +16,7 @@ db.User = User;
 db.Profile = Profile;
 db.Vacation = Vacation;
 db.ProfileVacation = ProfileVacation;
+db.Segment = Segment;
 
 
 module.exports = db;

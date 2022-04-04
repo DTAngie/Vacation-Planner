@@ -36,9 +36,9 @@ export default function VacationForm (){
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Vacation Nickname</label>
         <input type="text" name="name" id="name" placeholder="Vacation Nickname" onChange={handleChange} />
-        <label for="budget">Budget</label>
+        <label htmlFor="budget">Budget</label>
         <input type="number" name="budget" id="budget" step="0.01" min="0" placeholder="Budget" onChange={handleChange} />
-        <label for="passport">Passport Required?</label>
+        <label htmlFor="passport">Passport Required?</label>
         <input type="checkbox" name="passportRequired" id="passport" onChange={handleChange} />
         <button disabled={invalidForm} type="submit">Add New Vacation</button>
       </form>

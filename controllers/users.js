@@ -15,8 +15,7 @@ async function signup(req, res){
 // TODO: get rid of profile in parameters
   try {
     const { email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    const user = await User.create({email: email, password: hashedPassword});
+    const user = await User.create({email: email, password: password});
     const profile = await Profile.create({owner: user.id});
     const token = createJWT(user);
     res.json({token});

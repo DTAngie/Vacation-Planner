@@ -3,6 +3,8 @@ const sequelize = require('../config/database');
 const Profile = require('./profile');
 const bcrypt = require('bcrypt');
 
+const SALT_ROUNDS = 6;
+
 const User = sequelize.define('user', {
   id: {
     type: DataTypes.UUID,
@@ -44,7 +46,14 @@ User.prototype.toObject = function() {
   return thisUser;
 }
 
-
+User.beforeValidate(async (user) => {
+  try {
+    const hashedPassword = await bcrypt.hash(user.password, SALT_ROUNDS);
+    user.password = hashedPassword;
+  } catch(err){
+    throw new Error(err)
+  }
+});
 
 
 module.exports = User;

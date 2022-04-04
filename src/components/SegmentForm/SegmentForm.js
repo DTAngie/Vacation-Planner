@@ -23,6 +23,8 @@ export default function SegmentForm({vacationID}) {
   return (
     <div className='content'>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="segment-number">Segment Number</label>
+        <input type="number" name="number" id="segment-number" placeholder="e.g. 1 for the first stop" onChange={handleChange} />
         <label htmlFor="city">City</label>
         <input type="text" name="city" id="city" placeholder="city" onChange={handleChange}/>
         <label htmlFor="state">State, if applicable</label>
