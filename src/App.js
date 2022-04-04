@@ -9,6 +9,7 @@ import DashboardPage from './pages/DashboardPage/DashboardPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import VacationFormPage from './pages/VacationFormPage/VacationFormPage';
 import AddSegmentPage from './pages/AddSegmentPage/AddSegmentPage';
+import VacationPage from './pages/VacationPage/VacationPage';
 
 
 function App() {
@@ -36,7 +37,8 @@ function App() {
           <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
           <Route path="/dashboard" element={user ? <DashboardPage user={user} /> : <Navigate to="/login" />} />
           <Route path="/vacations/new" element={user ? <VacationFormPage /> : <Navigate to="/login" />} />
-          <Route path="/vacations/:id" element={user ? <AddSegmentPage /> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id/segments/new" element={user ? <AddSegmentPage /> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id" element={user ? <VacationPage /> : <Navigate to="/login" /> } />
         </Routes>
       
       

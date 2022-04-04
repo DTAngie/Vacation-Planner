@@ -22,11 +22,13 @@ const Segment = sequelize.define('segment', {
   country: DataTypes.STRING,
   segmentCost: {
     type: DataTypes.DECIMAL(11,2),
-    min: 0
+    min: 0,
+    field: 'segment_cost'
   },
-  vacation: {
+  vacationId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'vacation_id',
     references: {
       model: 'Vacation',
       key: 'id'

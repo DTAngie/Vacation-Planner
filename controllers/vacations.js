@@ -18,7 +18,7 @@ async function create(req, res) {
   try {
     const vacation = await Vacation.create({name: name, budget: budget, passportRequired: passportRequired});
     const user = await User.findOne({where:{id: req.user.id}, include: Profile});
-    vacation.addProfile(user.profile);
+    vacation.addProfile(user.profile, {through: {isOwner: true}});
     res.status(200).json({}); 
     // TODO do this need a status?
   } catch (err) {
@@ -28,11 +28,13 @@ async function create(req, res) {
 
 async function getVacationsByUser(req, res){
   try {
-    const user = await User.findOne({where: {id: req.user.id}, include: Profile});
+    const user = await User.findByPk(req.user.id, {include: Profile});
+    // const user = await User.findOne({where: {id: req.user.id}, include: Profile});
     const vacations = await user.profile.getVacations(); 
     // TODO: drop this table and see if it works with no data
     res.json(vacations);
   } catch (err){
+    console.log('get err is', err)
     res.status(400).json(err);
   }
 }

@@ -5,9 +5,11 @@ const ProfileVacation = require('./profilesVacations');
 const Segment = require('./segment');
 
 /*** Associations ***/
-User.hasOne(Profile, {foreignKey: 'owner'});
-Profile.belongsToMany(Vacation, {through: ProfileVacation, foreignKey: 'profile'});
-Vacation.belongsToMany(Profile, {through: ProfileVacation, foreignKey: 'vacation'});
+User.hasOne(Profile, {foreignKey: 'user_id'}); //TODO: test to make sure this works
+Profile.belongsToMany(Vacation, {through: ProfileVacation, foreignKey: 'profileId'});
+Vacation.belongsToMany(Profile, {through: ProfileVacation, foreignKey: 'vacationId'});
+Vacation.hasMany(Segment, {foreignKey: 'vacation_id'});
+Segment.belongsTo(Vacation, {foreignKey: 'vacation_id'});
 
 /*******/
 

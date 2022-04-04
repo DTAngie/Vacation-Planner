@@ -15,6 +15,7 @@ const Profile = sequelize.define('profile', {
   owner: {
     type:DataTypes.INTEGER,
     allowNull: false,
+    field: 'user_id',
     references: {
       model: 'User',
       key: 'id'

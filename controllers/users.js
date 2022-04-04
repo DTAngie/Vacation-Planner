@@ -13,6 +13,7 @@ module.exports = {
 
 async function signup(req, res){
 // TODO: get rid of profile in parameters
+// TODO: write a check only to create new user if user doesn't exist
   try {
     const { email, password } = req.body;
     const user = await User.create({email: email, password: password});

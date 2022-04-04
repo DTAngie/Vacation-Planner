@@ -2,23 +2,28 @@ const {Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const ProfileVacation = sequelize.define('profilesVacations', {
-  profile: {
+  profileId: {
     type:DataTypes.INTEGER,
     allowNull: false,
+    field: 'profile_id',
     references: {
       model: 'Profile',
-      key: 'profile'
+      key: 'id'
     }
   },
-  vacation: {
+  vacationId: {
     type:DataTypes.INTEGER,
     allowNull: false,
+    field: 'vacation_id',
     references: {
       model: 'Vacation',
-      key: 'vacation'
+      key: 'id'
     }
   },
-  isOwner: DataTypes.BOOLEAN
+  isOwner: {
+    type: DataTypes.BOOLEAN,
+    field: 'is_owner'
+  }
 }, {
   tableName: 'profiles_vacations',
   timestamps: false

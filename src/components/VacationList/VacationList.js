@@ -32,8 +32,8 @@ export default function VacationList({user}){
               <p>Passport Needed? {vacation.passportRequired ? 'Yes' : 'No'}</p>
             </div>
             <div className='right'>
-              <p><Link to="/">View Segments</Link></p>
-              <p><Link to={`/vacations/${vacation.id}`} state={{vacation}}>Add Segment</Link></p>
+              <p><Link to={`/vacations/${vacation.id}`} state={{vacation}}>View Segments</Link></p>
+              <p><Link to={`/vacations/${vacation.id}/segments/new`} state={{vacation}}>Add Segment</Link></p>
             </div>
           </div>
         ))

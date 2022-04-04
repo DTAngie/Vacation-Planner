@@ -14,6 +14,16 @@ function create(segment, vacationID){
   .then(res => res.json())
 }
 
+function getSegments(vacationID){
+  return fetch(`${BASE_URL}${vacationID}/segments`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+    }
+  })
+  .then(res => res.json())
+}
+
 export default {
-  create
+  create,
+  getSegments
 }

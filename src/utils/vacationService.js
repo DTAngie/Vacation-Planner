@@ -13,7 +13,7 @@ function create(vacation){
   })
   .then(res => res.json())
 }
-
+// TODO: is this ID parameter needed
 function getVacations(id){
   return fetch(`${BASE_URL}`, {
     headers: {
