@@ -8,15 +8,17 @@ import './App.css';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import VacationFormPage from './pages/VacationFormPage/VacationFormPage';
-import AddSegmentPage from './pages/AddSegmentPage/AddSegmentPage';
+import SegmentFormPage from './pages/SegmentFormPage/SegmentFormPage';
 import VacationPage from './pages/VacationPage/VacationPage';
+import SegmentPage from './pages/SegmentPage/SegmentPage';
+import ActivityFormPage from './pages/ActivityFormPage/ActivityFormPage';
 
 
 function App() {
   const [user, setUser] = useState(userService.getUser());
   const location = useLocation();
-  console.log('this is app location')
-  console.log(location)
+  // console.log('this is app location')
+  // console.log(location)
 
 
   function handleSignUpOrLogin(){
@@ -37,8 +39,10 @@ function App() {
           <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
           <Route path="/dashboard" element={user ? <DashboardPage user={user} /> : <Navigate to="/login" />} />
           <Route path="/vacations/new" element={user ? <VacationFormPage /> : <Navigate to="/login" />} />
-          <Route path="/vacations/:id/segments/new" element={user ? <AddSegmentPage /> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id/segments/new" element={user ? <SegmentFormPage /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id" element={user ? <VacationPage /> : <Navigate to="/login" /> } />
+          <Route path="/vacations/:id/segments/:segmentId" element={user ? <SegmentPage /> : <Navigate to="/login" /> } />
+          <Route path="/vacations/:id/segments/:segmentId/activities/new" element={user ? <ActivityFormPage /> : <Navigate to="/login" /> } />
         </Routes>
       
       

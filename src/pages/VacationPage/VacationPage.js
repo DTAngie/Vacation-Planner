@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import LeftNavigation from "../../components/LeftNavigation/LeftNavigation";
 import VacationDetail from "../../components/VacationDetail/VacationDetail";
@@ -6,12 +6,21 @@ import VacationDetail from "../../components/VacationDetail/VacationDetail";
 
 export default function VacationPage(){
   const location = useLocation();
-  const vacation = location.state.vacation;
+  const [vacation, setVacation] = useState({});
+  console.log(location)
+
+  useEffect(()=> {
+    setVacation(location.state?.vacation);
+  },[]);
 
   return(
     <div className="main grid DashboardPage">
       <LeftNavigation />
-      <VacationDetail vacation={vacation} />
+      {Object.keys(vacation).length > 0 ?
+        <VacationDetail vacation={vacation} />
+        :
+        ""  
+      }
     </div>
   );
 }

@@ -1,0 +1,43 @@
+.SegmentList .segment-header {
+  display: grid;
+  grid-template-areas: 
+    "number city"
+    "number country";
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin-bottom: 10px;
+}
+
+.SegmentList .segment-number {
+  grid-area: number;
+  font-size: 2em;
+  color: rgb(243, 185, 76);
+}
+
+.SegmentList .segment-first-line {
+  grid-area: city;
+  font-weight: bold;
+}
+
+.SegmentList .segment-second-line {
+  grid-area: country;
+  font-weight: bold;
+}
+
+.SegmentList .segment {
+  padding: 25px 10px;
+  border-radius: 5px;
+}
+
+.SegmentList .segment:hover {
+  background-color: rgba(131, 177, 161, 0.3);
+}
+
+.SegmentList .segment-content {
+  margin-left: 5%;
+}
+
+.SegmentList >  a  p {
+  color: #272727;
+  font-weight: normal;
+}

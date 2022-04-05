@@ -5,6 +5,7 @@ import segmentService from "../../utils/segmentService";
 export default function SegmentForm({vacationID}) {
   const [form, setForm] =  useState('');
   const navigate = useNavigate();
+  // TODO: add logic for invalid form
 
   async function handleSubmit(e){
     e.preventDefault();

@@ -6,6 +6,8 @@ import './VacationDetail.css';
 
 export default function VacationDetail({vacation}){
   const [segments, setSegments] = useState([]);
+  console.log(vacation)
+
   useEffect(async ()=> {
     try {
       const data = await segmentService.getSegments(vacation.id);
@@ -26,10 +28,10 @@ export default function VacationDetail({vacation}){
           <p>Passport Needed? {vacation.passportRequired ? 'Yes' : 'No'}</p>
         </div>
         <div className='right'>
-          <p><Link to={`/vacations/${vacation.id}`} state={{vacation}}>Add Segment</Link></p>
+          <p><Link to={`/vacations/${vacation.id}/segments/new`}  state={{vacation}}>Add Segment</Link></p>
         </div>
         <div className='divider'></div>
-        <SegmentList segments={segments} />
+        <SegmentList segments={segments} vacation={vacation} />
       </div>
     </div>
   );

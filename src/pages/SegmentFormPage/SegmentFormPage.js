@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import LeftNavigation from "../../components/LeftNavigation/LeftNavigation";
 import SegmentForm from "../../components/SegmentForm/SegmentForm";
 import vacationService from "../../utils/vacationService";
 
-export default function AddSegmentPage(){
+export default function SegmentFormPage(){
   const [vacation, setVacation] = useState({});
-  const params = useParams();
+  // const params = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   console.log(location.state);
   
   useEffect(()=>{
-    async function getVacation(){
-      try {
-        const data = await vacationService.getOne(params.id);
-        setVacation(data);
-      }catch (err){
-        console.log(err)
-      }
-    }
+    //TODO: refactor this to redirect if location.state doesn't exisst
+    // async function getVacation(){
+    //   try {
+    //     const data = await vacationService.getOne(params.id);
+    //     setVacation(data);
+    //   }catch (err){
+    //     console.log(err)
+    //     // TODO: if there's an error, redirect to dashboard
+    //   }
+    // }
     if(location.state?.vacation) {
       setVacation(location.state.vacation);
     } else {
-      getVacation();
+      navigate('/dashboard');
     }
   },[vacation]);
 

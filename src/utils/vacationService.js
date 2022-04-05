@@ -13,7 +13,7 @@ function create(vacation){
   })
   .then(res => res.json())
 }
-// TODO: is this ID parameter needed
+// TODO: is this ID parameter needed?
 function getVacations(id){
   return fetch(`${BASE_URL}`, {
     headers: {
@@ -23,6 +23,7 @@ function getVacations(id){
   .then(res => res.json())
 }
 
+// TODO: this might never get used
 function getOne(id) {
   return fetch(`${BASE_URL}${id}`, {
     headers: {
