@@ -77,7 +77,10 @@ async function getOne(req, res){
             }
           ]
         }, {
-          model: Activity} ]});
+          model: Activity
+        }
+      ]
+    });
     const profiles = segment.vacation.profiles;
     if(profiles.some(profile => profile.id === profileId)) {
       res.json(segment);

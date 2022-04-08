@@ -1,6 +1,6 @@
 // const Vacation = require('../models/vacation');
 // const Profile = require('../models/profile');
-const { User, Profile, Vacation, ProfileVacation } = require('../models/index')
+const { User, Profile, Vacation, ProfileVacation, Segment } = require('../models/index')
 // const User = require('../models/user');
 // const ProfileVacations = ('../models/profilesVacations');
 // const {Profile, Vacation } = require('../config/database');
@@ -44,13 +44,26 @@ async function getVacationsByUser(req, res){
 async function getOne(req, res){
   const profileId = req.user.profile.id;
   try {
-    const vacation = await Vacation.findOne({where: {id: req.params.id}, include: Profile});
-    if(vacation.profiles.some(profile => profile === profileId)) {
+    const vacation = await Vacation.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [
+        {
+          model: Profile,
+          required: true
+        }, {
+          model: Segment
+        }
+      ]
+    });
+    if(vacation.profiles.some(profile => profile.id === profileId)) {
       res.json(vacation);
     } else {
       res.status(400).json('Access Denied');
     }
   } catch(err){
+    console.log(err)
     res.status(400).json(err);
   }
 }

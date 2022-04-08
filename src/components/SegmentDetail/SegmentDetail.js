@@ -14,8 +14,6 @@ export default function SegmentDetail({segment}){
   //     setActivities(activities);
   //   }
   // })
-console.log('heeloo')
-  console.log(segment)
   return(
     <div className='content VacationDetail'>
       <div className='card'>

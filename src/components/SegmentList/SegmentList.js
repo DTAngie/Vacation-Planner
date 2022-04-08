@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './SegmentList.css';
 
-export default function SegmentList({segments, vacation}){
+export default function SegmentList({vacation}){
+  console.log(vacation)
   return(
     <div className="SegmentList">
-      {segments.map(segment => (
+      {vacation.segments.map(segment => (
         <Link to={`/vacations/${vacation.id}/segments/${segment.id}`}
           key={segment.id}
-          state={{vacation,segment}}
         >
           <div className="segment" >
             <div className="segment-header">

@@ -5,20 +5,20 @@ import SegmentList from '../SegmentList/SegmentList';
 import './VacationDetail.css';
 
 export default function VacationDetail({vacation}){
-  const [segments, setSegments] = useState([]);
+  // const [segments, setSegments] = useState([]);
  
 
   //TODO: in useEffect do if statement to check for state. If no state, use vacationService to get vacation and associated segments. (in same function)
-  useEffect(async ()=> {
-    try {
-      const data = await segmentService.getSegments(vacation.id);
-      setSegments(data);
-    } catch (err){ 
-      console.log(err);
-      // TODO: set error message
-    }
+  // useEffect(async ()=> {
+  //   try {
+  //     const data = await segmentService.getSegments(vacation.id);
+  //     setSegments(data);
+  //   } catch (err){ 
+  //     console.log(err);
+  //     // TODO: set error message
+  //   }
 
-  },[]);
+  // },[]);
   
   return(
     <div className='content VacationDetail'>
@@ -29,10 +29,10 @@ export default function VacationDetail({vacation}){
           <p>Passport Needed? {vacation.passportRequired ? 'Yes' : 'No'}</p>
         </div>
         <div className='right'>
-          <p><Link to={`/vacations/${vacation.id}/segments/new`}  state={{vacation}}>Add Segment</Link></p>
+          <p><Link to={`/vacations/${vacation.id}/segments/new`}>Add Segment</Link></p>
         </div>
         <div className='divider'></div>
-        <SegmentList segments={segments} vacation={vacation} />
+        <SegmentList vacation={vacation} />
       </div>
     </div>
   );
