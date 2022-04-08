@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import activityService from "../../utils/activityService";
 
-export default function ActivityForm(){
+export default function ActivityForm({vacationId, segmentId}){
   const [form, setForm] =  useState('');
   const navigate = useNavigate();
-  const [invalidForm, setInvalidForm] = useState(true);
+  const [invalidForm, setInvalidForm] = useState({ticketsPurchased: false});
+  //TODO: change this to reflect vacation instance, if passed in
 
   async function handleSubmit(e){
     e.preventDefault();
-    // const segment = await segmentService.create(form, vacationID);
-    // navigate('/dashboard', {state:{segment}});
-    // TODO: change this redirect once page is built
+    const segment = await activityService.create(form, segmentId, vacationId);
+    navigate(`/vacations/${vacationId}/segments/${segmentId}`);
   }
 
   function handleChange(e){
@@ -41,8 +42,8 @@ export default function ActivityForm(){
         <input type="text" id="address" name="address" placeholder="address" onChange={handleChange} />
         <label htmlFor="cost">Total Cost</label>
         <input type="number" min="0" name="cost" id="cost" placeholder="cost for all travellers" onChange={handleChange} />
-        <label htmlFor="tickets">Tickets Purchased?</label>
-        <input type="checkbox" name="tickets" id="tickets" onChange={handleChange} />
+        <label htmlFor="ticketsPurchased">Tickets Purchased?</label>
+        <input type="checkbox" name="ticketsPurchased" id="ticketsPurchased" onChange={handleChange} />
         <button disabled={invalidForm} type="submit">Add New Activity</button>
       </form>
     </div>

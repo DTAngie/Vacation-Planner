@@ -11,6 +11,7 @@ export default function VacationPage(){
 
   useEffect(()=> {
     setVacation(location.state?.vacation);
+    //TODO: add logic to get vacation from params if needed.
   },[]);
 
   return(

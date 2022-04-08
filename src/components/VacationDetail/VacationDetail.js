@@ -6,8 +6,9 @@ import './VacationDetail.css';
 
 export default function VacationDetail({vacation}){
   const [segments, setSegments] = useState([]);
-  console.log(vacation)
+ 
 
+  //TODO: in useEffect do if statement to check for state. If no state, use vacationService to get vacation and associated segments. (in same function)
   useEffect(async ()=> {
     try {
       const data = await segmentService.getSegments(vacation.id);

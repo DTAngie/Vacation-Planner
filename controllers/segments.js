@@ -1,8 +1,9 @@
-const { User, Vacation, Profile, Segment } = require("../models/index");
+const { User, Vacation, Profile, Segment, Activity } = require("../models/index");
 
 module.exports = {
   create,
-  getVacationSegments
+  getVacationSegments,
+  getOne
 }
 
 
@@ -22,7 +23,6 @@ async function create(req, res) {
     console.log(vacation.profiles[0].profilesVacations.isOwner);
     //TODO: if no vacation returned from search, throw error. and replace the logic below.
     //Use below logic for show functions.
-    const user = await User.findOne({where: {id: req.user.id}});
     // TODO:: check if owner before proceeding
   //TODO: confirm if double conditional works when non owners are added to the vacation
     if(vacation.profiles.some(profile => (profile.id === profileId) && (profile.profilesVacations.isOwner))) {
@@ -55,5 +55,37 @@ async function getVacationSegments(req, res){
     }
   } catch(err){
     res.status(400).json(err);
+  }
+}
+
+async function getOne(req, res){
+  console.log('back here')
+  const profileId = req.user.profile.id;
+  try {
+    const segment = await Segment.findOne({
+      where: {
+        id: req.params.segmentId
+      }, 
+      include: [
+        {
+          model: Vacation,
+          required: true,
+          include: [
+            {
+              model: Profile,
+              required: true,
+            }
+          ]
+        }, {
+          model: Activity} ]});
+    const profiles = segment.vacation.profiles;
+    if(profiles.some(profile => profile.id === profileId)) {
+      res.json(segment);
+    } else {
+      res.status(400).json('Access Denied');
+    }
+  } catch (err){
+    console.log(err)
+    res.status(400).json(err)
   }
 }

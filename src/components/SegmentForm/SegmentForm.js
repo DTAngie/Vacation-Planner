@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import segmentService from "../../utils/segmentService";
 
-export default function SegmentForm({vacationID}) {
+export default function SegmentForm({vacationId}) {
   const [form, setForm] =  useState('');
   const navigate = useNavigate();
   // TODO: add logic for invalid form
 
   async function handleSubmit(e){
     e.preventDefault();
-    const segment = await segmentService.create(form, vacationID);
+    const segment = await segmentService.create(form, vacationId);
     navigate('/dashboard', {state:{segment}});
     // TODO: change this redirect once page is built
   }

@@ -11,7 +11,7 @@ export default function SegmentFormPage(){
   const navigate = useNavigate();
   console.log(location.state);
   
-  useEffect(()=>{
+  useEffect(async ()=>{
     //TODO: refactor this to redirect if location.state doesn't exisst
     // async function getVacation(){
     //   try {
@@ -25,6 +25,12 @@ export default function SegmentFormPage(){
     if(location.state?.vacation) {
       setVacation(location.state.vacation);
     } else {
+      try {
+// TODO: fill out shi logic
+      } catch(err){
+        console.log(err)
+        // TODO: flash the message
+      }
       navigate('/dashboard');
     }
   },[vacation]);
@@ -37,7 +43,7 @@ export default function SegmentFormPage(){
         <p className="guide">If you are travelling to multiple cities, you can split your vacation up into segments to assist with planning and budgeting.</p>
         <div className="card">
           <h3>{vacation.name}</h3>
-          <SegmentForm vacationID={vacation.id} />
+          <SegmentForm vacationId={vacation.id} />
         </div>
       </div>
     </div>

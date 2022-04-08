@@ -23,7 +23,7 @@ function getVacations(id){
   .then(res => res.json())
 }
 
-// TODO: this might never get used
+
 function getOne(id) {
   return fetch(`${BASE_URL}${id}`, {
     headers: {

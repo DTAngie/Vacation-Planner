@@ -2,8 +2,8 @@ import tokenService from './tokenService';
 
 const BASE_URL = '/api/vacations/';
 
-function create(segment, vacationID){
-  return fetch(`${BASE_URL}${vacationID}/segments`, {
+function create(segment, vacationId){
+  return fetch(`${BASE_URL}${vacationId}/segments`, {
     headers: {
       'Authorization': 'Bearer ' + tokenService.getToken(),
       'Content-Type': 'application/json'
@@ -14,8 +14,17 @@ function create(segment, vacationID){
   .then(res => res.json())
 }
 
-function getSegments(vacationID){
-  return fetch(`${BASE_URL}${vacationID}/segments`, {
+function getSegments(vacationId){
+  return fetch(`${BASE_URL}${vacationId}/segments`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+    }
+  })
+  .then(res => res.json())
+}
+
+function getOne(vacationId, segmentId){
+  return fetch(`${BASE_URL}${vacationId}/segments/${segmentId}`, {
     headers: {
       'Authorization': 'Bearer ' + tokenService.getToken(),
     }
@@ -25,5 +34,6 @@ function getSegments(vacationID){
 
 export default {
   create,
-  getSegments
+  getSegments,
+  getOne
 }

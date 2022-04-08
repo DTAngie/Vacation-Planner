@@ -1,0 +1,28 @@
+.ActivityList >  a  p {
+  color: #272727;
+  font-weight: normal;
+  margin-bottom: 4px;;
+}
+
+.ActivityList .activity {
+  padding: 25px 10px;
+  border-radius: 5px;
+}
+
+.ActivityList .activity:hover {
+  background-color: rgba(131, 177, 161, 0.3);
+}
+
+
+.ActivityList .activity-header {
+  margin-bottom: 10px;
+}
+
+.ActivityList .activity-header p {
+  font-weight: bold;
+
+}
+
+.ActivityList #activity-name {
+  font-size: 1.2em;
+}
