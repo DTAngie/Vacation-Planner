@@ -43,6 +43,7 @@ function App() {
           <Route path="/vacations/:id" element={user ? <VacationPage /> : <Navigate to="/login" /> } />
           <Route path="/vacations/:id/segments/:segmentId" element={user ? <SegmentPage /> : <Navigate to="/login" /> } />
           <Route path="/vacations/:id/segments/:segmentId/activities/new" element={user ? <ActivityFormPage /> : <Navigate to="/login" /> } />
+          <Route path="/vacations/:id/segments/:segmentId/activities/:activityId/edit" element={user ? <ActivityFormPage /> : <Navigate to="/login" /> } />
         </Routes>
       
       

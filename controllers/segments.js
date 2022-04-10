@@ -3,7 +3,9 @@ const { User, Vacation, Profile, Segment, Activity } = require("../models/index"
 module.exports = {
   create,
   getVacationSegments,
-  getOne
+  getOne,
+  edit,
+  getOneForEdit
 }
 
 
@@ -42,7 +44,7 @@ async function create(req, res) {
     res.status(400).json(err)
   }
 }
-
+//TODO: this should just be, vacation GetOne
 async function getVacationSegments(req, res){
   const profileId = req.user.profile.id;
   try {
@@ -59,7 +61,6 @@ async function getVacationSegments(req, res){
 }
 
 async function getOne(req, res){
-  console.log('back here')
   const profileId = req.user.profile.id;
   try {
     const segment = await Segment.findOne({
@@ -83,6 +84,68 @@ async function getOne(req, res){
     });
     const profiles = segment.vacation.profiles;
     if(profiles.some(profile => profile.id === profileId)) {
+      res.json(segment);
+    } else {
+      res.status(400).json('Access Denied');
+    }
+  } catch (err){
+    console.log(err)
+    res.status(400).json(err)
+  }
+}
+//TODO: what is this used for?
+async function edit(req, res){
+  const profileId = req.user.profile.id;
+  try {
+    const segment = await Segment.findOne({
+      where: {
+        id: req.params.segmentId
+      }, 
+      include: [
+        {
+          model: Vacation,
+          required: true,
+          include: [
+            {
+              model: Profile,
+              required: true,
+            }
+          ]
+        }, {
+          model: Activity,
+          where: {
+            id: req.params.activity.id
+          }
+        }
+      ]
+    });
+    const profiles = segment.vacation.profiles;
+    if(profiles.some(profile => profile.id === profileId)) {
+      res.json(segment);
+    } else {
+      res.status(400).json('Access Denied');
+    }
+  } catch (err){
+    console.log(err)
+    res.status(400).json(err)
+  }
+}
+
+async function getOneForEdit(req, res){
+  const profileId = req.user.profile.id;
+  try {
+    const segment = await Segment.findOne({
+      where: {
+        id: req.params.segmentId
+      }, 
+      include: Vacation
+    });
+
+    const vacation = await Vacation.findByPk(req.params.id, {
+      include: Profile
+    })
+  
+    if(vacation.profiles.some(profile => (profile.id === profileId)  && (profile.profilesVacations.isOwner))) {
       res.json(segment);
     } else {
       res.status(400).json('Access Denied');

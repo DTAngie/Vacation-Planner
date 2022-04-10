@@ -1,0 +1,14 @@
+.VacationForm input {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.VacationForm input[type='checkbox'] {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.VacationForm button {
+  display: block;
+}

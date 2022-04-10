@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import vacationService from '../../utils/vacationService';
-
+import './VacationForm.css';
 
 export default function VacationForm (){
   const navigate = useNavigate();
@@ -33,15 +33,19 @@ export default function VacationForm (){
 
   return(
     <div className="content VacationForm">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Vacation Nickname</label>
-        <input type="text" name="name" id="name" placeholder="Vacation Nickname" onChange={handleChange} />
-        <label htmlFor="budget">Budget</label>
-        <input type="number" name="budget" id="budget" step="0.01" min="0" placeholder="Budget" onChange={handleChange} />
-        <label htmlFor="passport">Passport Required?</label>
-        <input type="checkbox" name="passportRequired" id="passport" onChange={handleChange} />
-        <button disabled={invalidForm} type="submit">Add New Vacation</button>
-      </form>
+      <div className="card">
+        <h3>Add New Vacation</h3>
+        {/* TODO: add ternary for h3  */}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">Vacation Nickname</label>
+          <input type="text" name="name" id="name" placeholder="Vacation Nickname" onChange={handleChange} />
+          <label htmlFor="budget">Budget</label>
+          <input type="number" name="budget" id="budget" step="0.01" min="0" placeholder="Budget" onChange={handleChange} />
+          <label htmlFor="passport">Passport Required?</label>
+          <input type="checkbox" name="passportRequired" id="passport" onChange={handleChange} />
+          <button disabled={invalidForm} type="submit">Add New Vacation</button>
+        </form>
+      </div>
     </div>
   );
 }

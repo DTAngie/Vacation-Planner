@@ -2,7 +2,7 @@ import tokenService from './tokenService';
 
 const BASE_URL = '/api/vacations/';
 
-function create(segment, vacationId){
+function create(vacationId, segment){
   return fetch(`${BASE_URL}${vacationId}/segments`, {
     headers: {
       'Authorization': 'Bearer ' + tokenService.getToken(),
@@ -32,8 +32,18 @@ function getOne(vacationId, segmentId){
   .then(res => res.json())
 }
 
+function getOneForEdit(vacationId, segmentId){
+  return fetch(`${BASE_URL}${vacationId}/segments/${segmentId}/activity`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+    }
+  })
+  .then(res => res.json())
+}
+
 export default {
   create,
   getSegments,
-  getOne
+  getOne,
+  getOneForEdit
 }

@@ -9,7 +9,7 @@ export default function SegmentForm({vacationId}) {
 
   async function handleSubmit(e){
     e.preventDefault();
-    const segment = await segmentService.create(form, vacationId);
+    const segment = await segmentService.create(vacationId, form);
     navigate('/dashboard', {state:{segment}});
     // TODO: change this redirect once page is built
   }

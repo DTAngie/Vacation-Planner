@@ -41,6 +41,7 @@ async function getVacationsByUser(req, res){
 
 
 //TODO: will this actually be used? 
+//this should be getVacation Segments... use this in place of the one in segments controller
 async function getOne(req, res){
   const profileId = req.user.profile.id;
   try {

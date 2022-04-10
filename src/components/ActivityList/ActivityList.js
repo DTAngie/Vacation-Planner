@@ -18,7 +18,7 @@ export default function ActivityList({segment}){
     <div className="ActivityList">
       {segment.activities.map(activity =>  (
         
-        <Link to={`/vacations/${segment.vacation.id}/segments/${segment.id}/activities/${activity.id}`}
+        <Link to={`/vacations/${segment.vacation.id}/segments/${segment.id}/activities/${activity.id}/edit`}
           key={activity.id}
         >
           <div className="activity" >
