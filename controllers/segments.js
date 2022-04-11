@@ -51,6 +51,7 @@ async function getVacationSegments(req, res){
     const vacation = await Vacation.findOne({where: {id: req.params.id}, include: Profile});
     if(vacation.profiles.some(profile => profile.id === profileId)) {
       const segments = await vacation.getSegments({order: ['number']});
+      console.log(segments)
       res.json(segments);
     } else {
       res.status(400).json('Access Denied');
@@ -80,6 +81,9 @@ async function getOne(req, res){
         }, {
           model: Activity
         }
+      ],
+      order: [
+        [Activity, 'date']
       ]
     });
     const profiles = segment.vacation.profiles;

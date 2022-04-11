@@ -2,7 +2,8 @@ const { Profile, Vacation, Activity, Segment } = require("../models/index");
 
 module.exports = {
   create,
-  edit
+  edit,
+  update
 }
 
 
@@ -34,7 +35,7 @@ async function create(req, res){
         ticketsPurchased: ticketsPurchased,
         segmentId: req.params.segmentId
       });
-      res.json({activity});
+      res.json({activity}); //TODO: does activity need to be returned? this may be redundant
     } else {
       res.status(400).json('Access Denied');
     }
@@ -76,6 +77,49 @@ async function edit(req, res) {
     }
 
     console.log(activity)
+  } catch(err){
+    res.status(400).json(err);
+  }
+
+}
+
+async function update(req, res) {
+  const profileId = req.user.profile.id;
+  try {
+    const activity = await Activity.findByPk(req.params.activityId,
+      {
+        include: [{
+          model: Segment,
+          required: true,
+          include: [{
+            model: Vacation,
+            required: true
+          }]
+        }]
+      }
+    );
+
+    const vacation = await Vacation.findByPk(activity.segment.vacation.id,
+      {
+        include: [
+          {
+            model: Profile, 
+            through: {isOwner: true}
+          }
+        ]
+      }
+    );
+    //TODO: can this logic go on model? isOwner function maybe? pass the vacation and vacation id
+    //if so, replace all these with function call
+    if(vacation.profiles.some(profile => (profile.id === profileId) && (profile.profilesVacations.isOwner))) {
+      console.log(req.body)
+      await activity.update(req.body);
+      await activity.save()
+      
+      res.json({activity})
+    } else {
+      res.status(400).json('Access Denied');
+    }
   } catch(err){
     res.status(400).json(err);
   }

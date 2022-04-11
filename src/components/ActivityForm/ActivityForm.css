@@ -1,0 +1,14 @@
+.ActivityForm input {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.ActivityForm input[type='checkbox'] {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.ActivityForm button {
+  display: block;
+}

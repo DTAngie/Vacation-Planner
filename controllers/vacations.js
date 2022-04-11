@@ -56,6 +56,9 @@ async function getOne(req, res){
         }, {
           model: Segment
         }
+      ],
+      order:[
+        [Segment, 'number']
       ]
     });
     if(vacation.profiles.some(profile => profile.id === profileId)) {

@@ -24,7 +24,20 @@ function edit(vacationId, segmentId, activityId){
   .then(res => res.json())
 }
 
+function update(vacationId, segmentId, activityId, activity){
+  return fetch(`${BASE_URL}${vacationId}/segments/${segmentId}/activities/${activityId}`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(activity)
+  })
+  .then(res => res.json())
+}
+
 export default {
   create,
-  edit
+  edit,
+  update
 }
