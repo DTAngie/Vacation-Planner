@@ -36,11 +36,32 @@ button:disabled {
               inset -3px 3px 6px #d9e0de;
 }
 
+button.danger {
+  background: #ca3e13;
+  box-shadow: inset 3px -3px 6px #b3350f,
+              inset -3px 3px 6px #f35120;
+}
+
 form input {
   padding: 3px;
   border-radius: 5px;
   border: 2px solid #ccc;
   box-shadow: 2px 2px 4px rgba(0,0,0, 0.3);
+}
+
+form .btn-container {
+  display: grid;
+  grid-template-columns: 20% 45% 35%;
+  grid-template-rows: 100%;
+  grid-template-areas: "submit-btn . delete-btn"
+}
+
+form .btn-container .delete-btn {
+  grid-area: delete-btn;
+}
+
+form .btn-container .submit-btn {
+  grid-area: submit-btn;
 }
 
 ul li {
@@ -66,7 +87,7 @@ ul li {
   border-radius: 5px;
   padding: 25px 30px;
   margin: 25px 0;
-  width: 70%;
+  width: 85%;
 }
 
 p.guide {

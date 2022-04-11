@@ -27,6 +27,8 @@ async function create(req, res) {
 }
 
 async function getVacationsByUser(req, res){
+  console.log('dashboard')
+  console.log(req.user)
   try {
     const user = await User.findByPk(req.user.id, {include: Profile});
     // const user = await User.findOne({where: {id: req.user.id}, include: Profile});

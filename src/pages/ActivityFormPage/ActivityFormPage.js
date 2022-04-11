@@ -33,9 +33,14 @@ export default function ActivityFormPage(){
       
       if(params.activityId){
         const data = await activityService.edit(params.id, params.segmentId, params.activityId);
-        setActivity(data.activity);
+        if (data === 'Access Denied'){
+          navigate('/dashboard');
+        } else {
+          setActivity(data.activity);
+        }
       } else {
         const data = await segmentService.getOneForEdit(params.id, params.segmentId);
+        console.log(data)
         setSegment(data);
       }
 

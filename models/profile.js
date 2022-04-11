@@ -26,5 +26,25 @@ const Profile = sequelize.define('profile', {
   modelName: 'profile'
 });
 
+Profile.prototype.isVacationOwner = function (vacationId){
+  console.log(this);
+  console.log(vacationId)
+  if(this.vacations.some(vacation => (vacation.id === vacationId) && (vacation.profilesVacations.isOwner))) {
+    // TODO: check with another user to make sure this really works
+    return true;
+  }
+  return false;
+}
+
+//TODO: check that vacation ID is coming from the right source
+Profile.prototype.isOnVacation = function (vacationId){
+  console.log(this);
+  console.log(vacationId)
+  if(this.vacations.some(vacation => vacation.id === vacationId)) {
+    // TODO: check with another user to make sure this really works
+    return true;
+  }
+  return false;
+}
 
 module.exports = Profile;

@@ -31,6 +31,16 @@ export default function ActivityForm({vacationId, segmentId, activity}){
     });
   }
 
+  async function handleDelete(e){
+    try {
+      await activityService.delete(vacationId, segmentId, activity.id);
+      navigate(`/vacations/${vacationId}/segments/${segmentId}`);
+    } catch (err){
+      console.log(err);
+      //TODO: flash error to screen
+    }
+  }
+
   useEffect(()=> {
     if(form.date && form.name) {
       setInvalidForm(false)
@@ -71,7 +81,14 @@ export default function ActivityForm({vacationId, segmentId, activity}){
         <input type="number" min="0" name="cost" id="cost" placeholder="cost for all travellers" onChange={handleChange} defaultValue={activity?.cost ? activity.cost: ''} />
         <label htmlFor="ticketsPurchased">Tickets Purchased?</label>
         <input type="checkbox" name="ticketsPurchased" id="ticketsPurchased" onChange={handleChange} checked={activity?.ticketsPurchased} />
-        <button disabled={invalidForm} type="submit">Add New Activity</button>
+        <div className="btn-container">
+          <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
+          {activity ?
+           <button className="danger delete-btn" onClick={handleDelete}>Delete Activity</button>
+          :
+            ""
+          }
+        </div>
       </form>
     </div>
   );
