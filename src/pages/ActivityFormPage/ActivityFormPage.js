@@ -26,7 +26,6 @@ export default function ActivityFormPage(){
       </>
     ;
 
-
   function getError(err){
     setError(err);
   }
