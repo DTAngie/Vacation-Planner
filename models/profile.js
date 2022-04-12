@@ -38,8 +38,6 @@ Profile.prototype.isVacationOwner = function (vacationId){
 
 //TODO: check that vacation ID is coming from the right source
 Profile.prototype.isOnVacation = function (vacationId){
-  console.log(this);
-  console.log(vacationId)
   if(this.vacations.some(vacation => vacation.id === vacationId)) {
     // TODO: check with another user to make sure this really works
     return true;

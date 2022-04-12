@@ -12,7 +12,7 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
     e.preventDefault();
     try {
       if(activity) {
-        await activityService.update(vacationId, segmentId, activity.id, form)
+        await activityService.update(vacationId, segmentId, activity.id, form);
       } else {
         await activityService.create(vacationId, segmentId, form);
       }
@@ -63,6 +63,7 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
         address: activity.address,
         cost: activity.cost,
         ticketsPurchased: !!activity.ticketsPurchased
+        // TODO: check database to be sure true/false are being saved to the databse, not null
       });
     } else {
       setForm({
@@ -89,7 +90,7 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
         <div className="btn-container">
           <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
           {activity ?
-           <button className="danger delete-btn" onClick={handleDelete}>Delete Activity</button>
+            <button className="danger delete-btn" onClick={handleDelete}>Delete Activity</button>
           :
             ""
           }

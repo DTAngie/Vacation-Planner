@@ -5,45 +5,62 @@ module.exports = {
   getVacationSegments,
   getOne,
   edit,
+  update,
   getOneForEdit
 }
 
 
 async function create(req, res) {
-  const profileId = req.user.profile.id;
   const { city, state, country, number } = req.body;
   try {
-    const vacation = await Vacation.findOne({
-      where: {id: req.params.id}, 
-      include: [
-        {
-          model: Profile, 
-          through: {isOwner: true}
-        }
-      ]
-    });
-    console.log(vacation.profiles[0].profilesVacations.isOwner);
-    //TODO: if no vacation returned from search, throw error. and replace the logic below.
-    //Use below logic for show functions.
-    // TODO:: check if owner before proceeding
-  //TODO: confirm if double conditional works when non owners are added to the vacation
-    if(vacation.profiles.some(profile => (profile.id === profileId) && (profile.profilesVacations.isOwner))) {
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isVacationOwner(req.params.id)) {
       const segment = await Segment.create({
+        number: number,
         city: city,
         state: state,
         country: country,
-        vacationId: vacation.id,
-        number: number
+        vacationId: req.params.id
       });
-      res.json({segment});
+      res.json({segmentId: segment.id});
     } else {
-      res.status(400).json('Access Denied');
+      res.status(401).json();
     }
   } catch (err) {
-    console.log('err is', err)
-    res.status(400).json(err)
+    res.status(400).json()
   }
 }
+
+async function edit(req, res) {
+  try {
+    const segment = await Segment.findByPk(req.params.segmentId, {include: Vacation});
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isVacationOwner(segment.vacation.id)) {
+      res.json({segment});
+    } else {
+      res.status(401).json();
+    }
+  } catch(err){
+    res.status(400).json();
+  }
+}
+
+async function update(req, res) {
+  try {
+    const segment = await Segment.findByPk(req.params.segmentId, { include: Vacation});
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isVacationOwner(segment.vacation.id)) {
+      await segment.update(req.body);
+      await segment.save()
+      res.json({segmentId: segment.id});
+    } else{
+      res.status(401).json();
+    }
+  } catch(err){
+    res.status(400).json();
+  }
+}
+
 //TODO: this should just be, vacation GetOne
 async function getVacationSegments(req, res){
   const profileId = req.user.profile.id;
@@ -64,10 +81,7 @@ async function getVacationSegments(req, res){
 async function getOne(req, res){
   const profileId = req.user.profile.id;
   try {
-    const segment = await Segment.findOne({
-      where: {
-        id: req.params.segmentId
-      }, 
+    const segment = await Segment.findByPk(req.params.segmentId, { 
       include: [
         {
           model: Vacation,
@@ -86,52 +100,14 @@ async function getOne(req, res){
         [Activity, 'date']
       ]
     });
-    const profiles = segment.vacation.profiles;
-    if(profiles.some(profile => profile.id === profileId)) {
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isVacationOwner(segment.vacation.id)) {
       res.json(segment);
     } else {
-      res.status(400).json('Access Denied');
+      res.status(401).json();
     }
   } catch (err){
-    console.log(err)
-    res.status(400).json(err)
-  }
-}
-//TODO: what is this used for?
-async function edit(req, res){
-  const profileId = req.user.profile.id;
-  try {
-    const segment = await Segment.findOne({
-      where: {
-        id: req.params.segmentId
-      }, 
-      include: [
-        {
-          model: Vacation,
-          required: true,
-          include: [
-            {
-              model: Profile,
-              required: true,
-            }
-          ]
-        }, {
-          model: Activity,
-          where: {
-            id: req.params.activity.id
-          }
-        }
-      ]
-    });
-    const profiles = segment.vacation.profiles;
-    if(profiles.some(profile => profile.id === profileId)) {
-      res.json(segment);
-    } else {
-      res.status(400).json('Access Denied');
-    }
-  } catch (err){
-    console.log(err)
-    res.status(400).json(err)
+    res.status(400).json();
   }
 }
 

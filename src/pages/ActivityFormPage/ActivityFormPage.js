@@ -56,15 +56,15 @@ export default function ActivityFormPage(){
       {error ? <ErrorMessage error={error} /> : ""}
         {params.activityId ?
           <h2>Edit Activity</h2>
-          :
+        :
           <h2>Add Activity</h2>
         }
         <div className="card">
-        {Object.keys(segment).length > 0 || Object.keys(activity).length > 0 ?
-          activityForm()
+          {Object.keys(segment).length > 0 || Object.keys(activity).length > 0 ?
+            activityForm()
           :
-          ""
-        }
+            ""
+          }
         </div>
       </div>
     </div>

@@ -53,7 +53,6 @@ async function edit(req, res) {
   } catch(err){
     res.status(400).json();
   }
-
 }
 
 async function update(req, res) {

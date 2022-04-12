@@ -33,8 +33,18 @@ function getOne(id) {
   .then(res => res.json())
 }
 
+function getOneForEdit(id){
+  return fetch(`${BASE_URL}${id}/segment/`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+    }
+  })
+  .then(res => res.json())
+}
+
 export default {
   create,
   getVacations,
-  getOne
+  getOne,
+  getOneForEdit
 }

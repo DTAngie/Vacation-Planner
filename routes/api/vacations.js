@@ -4,6 +4,7 @@ const vacationsCtrl = require('../../controllers/vacations');
 
 router.post('/', vacationsCtrl.create);
 router.get('/', vacationsCtrl.getVacationsByUser);
+router.get('/:id/segment', vacationsCtrl.getOneForEdit);
 router.get('/:id', vacationsCtrl.getOne);
 
 module.exports = router

@@ -22,11 +22,11 @@ export default function SegmentDetail({segment}){
           <p>{segment.city}</p>
         </div>
         <div className='right'>
+          <p><Link to={`/vacations/${segment.vacation.id}/segments/${segment.id}/edit`}>Edit this Segment</Link></p>
           <p><Link to={`/vacations/${segment.vacation.id}/segments/${segment.id}/activities/new`}>Add Activity</Link></p>
         </div>
         <div className='divider'></div>
         <ActivityList segment={segment}/>
-        {/* TODO: Display activities here */}
       </div>
     </div>
   );
