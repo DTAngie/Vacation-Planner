@@ -11,7 +11,10 @@ function create(vacationId, segmentId, activity){
     method: 'POST',
     body: JSON.stringify(activity)
   })
-  .then(res => res.json())
+  .then(res => {
+    if (res.ok) return res.json()
+    throw new Error(res.status)
+  })
 }
 
 function edit(vacationId, segmentId, activityId){
@@ -21,7 +24,10 @@ function edit(vacationId, segmentId, activityId){
       'Content-Type': 'application/json'
     },
   })
-  .then(res => res.json())
+  .then(res => {
+    if (res.ok) return res.json()
+    throw new Error(res.status)
+  })
 }
 
 function update(vacationId, segmentId, activityId, activity){
@@ -33,7 +39,10 @@ function update(vacationId, segmentId, activityId, activity){
     method: 'PUT',
     body: JSON.stringify(activity)
   })
-  .then(res => res.json())
+  .then(res => {
+    if (res.ok) return res.json()
+    throw new Error(res.status)
+  })
 }
 
 function deleteOne(vacationId, segmentId, activityId){
@@ -44,7 +53,10 @@ function deleteOne(vacationId, segmentId, activityId){
     },
     method: 'DELETE',
   })
-  .then(res => res.json())
+  .then(res => {
+    if (res.ok) return res.json()
+    throw new Error(res.status)
+  })
 }
 
 export default {

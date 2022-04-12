@@ -23,7 +23,11 @@ export default function LoginForm(props){
       props.handleSignUpOrLogin();
       navigate('/dashboard');
     } catch(error){
-      props.getError(error.message);
+      if(error.message === "401") {
+        props.getError('Username and/or password is incorrect.');
+      } else if (error.message === '400'){
+        props.getError('Something went wrong, please try again.');
+      }
     }
   }
 

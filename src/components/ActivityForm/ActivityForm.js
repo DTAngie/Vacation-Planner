@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import activityService from "../../utils/activityService";
 import './ActivityForm.css';
 
-export default function ActivityForm({vacationId, segmentId, activity}){
+export default function ActivityForm({vacationId, segmentId, activity, getError}){
   const [form, setForm] =  useState({});
   const navigate = useNavigate();
   const [invalidForm, setInvalidForm] = useState(true);
-  //TODO: change this to reflect vacation instance, if passed in
 
   async function handleSubmit(e){
     e.preventDefault();
@@ -19,8 +18,11 @@ export default function ActivityForm({vacationId, segmentId, activity}){
       }
       navigate(`/vacations/${vacationId}/segments/${segmentId}`);
     } catch(err) {
-      console.log(err);
-      //TODO: flash error to screen
+      if(err.message === "401") {
+        getError('Only vacation owners can modify vacation details.');
+      } else if (err.message === '400'){
+        getError('Could not update. Please try again.');
+      }
     }
   }
 
@@ -36,8 +38,11 @@ export default function ActivityForm({vacationId, segmentId, activity}){
       await activityService.delete(vacationId, segmentId, activity.id);
       navigate(`/vacations/${vacationId}/segments/${segmentId}`);
     } catch (err){
-      console.log(err);
-      //TODO: flash error to screen
+      if(err.message === "401") {
+        getError('Only vacation owners can modify vacation details.');
+      } else if (err.message === '400'){
+        getError('Could not delete. Please try again.');
+      }
     }
   }
 

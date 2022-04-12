@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { Route, Routes, Navigate, Router, useLocation } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import PageHeader from './components/PageHeader/PageHeader';
 import FrontPage from './pages/FrontPage/FrontPage';
 import SignupPage from './pages/SignupPage/SignupPage';
-import userService from './utils/userService';
-import './App.css';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import VacationFormPage from './pages/VacationFormPage/VacationFormPage';
@@ -12,15 +10,13 @@ import SegmentFormPage from './pages/SegmentFormPage/SegmentFormPage';
 import VacationPage from './pages/VacationPage/VacationPage';
 import SegmentPage from './pages/SegmentPage/SegmentPage';
 import ActivityFormPage from './pages/ActivityFormPage/ActivityFormPage';
+import userService from './utils/userService';
+import './App.css';
 
 
 function App() {
   const [user, setUser] = useState(userService.getUser());
-  const location = useLocation();
-  // console.log('this is app location')
-  // console.log(location)
-
-
+ 
   function handleSignUpOrLogin(){
     setUser(userService.getUser());
   }
@@ -45,8 +41,6 @@ function App() {
           <Route path="/vacations/:id/segments/:segmentId/activities/new" element={user ? <ActivityFormPage /> : <Navigate to="/login" /> } />
           <Route path="/vacations/:id/segments/:segmentId/activities/:activityId/edit" element={user ? <ActivityFormPage /> : <Navigate to="/login" /> } />
         </Routes>
-      
-      
     </div>
   );
 }
