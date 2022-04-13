@@ -11,7 +11,10 @@ function create(vacationId, segment){
     method: 'POST',
     body: JSON.stringify(segment)
   })
-  .then(res => res.json())
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
 }
 
 function edit(vacationId, segmentId){
@@ -22,9 +25,9 @@ function edit(vacationId, segmentId){
     },
   })
   .then(res => {
-    if (res.ok) return res.json()
-    throw new Error(res.status)
-  })
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
 }
 
 function update(vacationId, segmentId, segment){
@@ -37,18 +40,9 @@ function update(vacationId, segmentId, segment){
     body: JSON.stringify(segment)
   })
   .then(res => {
-    if (res.ok) return res.json()
+    if (res.ok) return res.json();
     throw new Error(res.status)
   })
-}
-
-function getSegments(vacationId){
-  return fetch(`${BASE_URL}${vacationId}/segments`, {
-    headers: {
-      'Authorization': 'Bearer ' + tokenService.getToken(),
-    }
-  })
-  .then(res => res.json())
 }
 
 function getOne(vacationId, segmentId){
@@ -69,11 +63,25 @@ function getOneForEdit(vacationId, segmentId){
   .then(res => res.json())
 }
 
+function deleteOne(vacationId, segmentId){
+  return fetch(`${BASE_URL}${vacationId}/segments/${segmentId}`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+      'Content-Type': 'application/json'
+    },
+    method: 'DELETE',
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
+}
+
 export default {
   create,
-  getSegments,
   getOne,
   getOneForEdit,
   edit,
-  update
+  update,
+  delete: deleteOne
 }

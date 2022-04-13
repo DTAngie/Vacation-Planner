@@ -12,9 +12,9 @@ function create(vacationId, segmentId, activity){
     body: JSON.stringify(activity)
   })
   .then(res => {
-    if (res.ok) return res.json()
-    throw new Error(res.status)
-  })
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
 }
 
 function edit(vacationId, segmentId, activityId){
@@ -25,9 +25,9 @@ function edit(vacationId, segmentId, activityId){
     },
   })
   .then(res => {
-    if (res.ok) return res.json()
-    throw new Error(res.status)
-  })
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
 }
 
 function update(vacationId, segmentId, activityId, activity){
@@ -40,9 +40,9 @@ function update(vacationId, segmentId, activityId, activity){
     body: JSON.stringify(activity)
   })
   .then(res => {
-    if (res.ok) return res.json()
-    throw new Error(res.status)
-  })
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
 }
 
 function deleteOne(vacationId, segmentId, activityId){
@@ -54,9 +54,9 @@ function deleteOne(vacationId, segmentId, activityId){
     method: 'DELETE',
   })
   .then(res => {
-    if (res.ok) return res.json()
-    throw new Error(res.status)
-  })
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
 }
 
 export default {

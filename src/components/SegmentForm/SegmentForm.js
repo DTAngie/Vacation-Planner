@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import activityService from "../../utils/activityService";
 import segmentService from "../../utils/segmentService";
 import './SegmentForm.css';
 
@@ -7,7 +8,6 @@ export default function SegmentForm({vacationId, segment, getError}) {
   const [form, setForm] =  useState({});
   const navigate = useNavigate();
   const [invalidForm, setInvalidForm] = useState(true);
-  // TODO: add logic for invalid form
 
   async function handleSubmit(e){
     e.preventDefault();
@@ -21,7 +21,6 @@ export default function SegmentForm({vacationId, segment, getError}) {
       navigate(`/vacations/${vacationId}/segments/${data.segmentId}`);
     } catch (err) {
       if(err.message === "401") {
-        console.log('theres an error')
         getError('Only vacation owners can modify vacation details.');
       } else if (err.message === '400'){
         getError('Could not update. Please try again.');
@@ -30,7 +29,16 @@ export default function SegmentForm({vacationId, segment, getError}) {
   }
 
   async function handleDelete(e){
-    //TODO: set this up
+    try {
+      await segmentService.delete(vacationId, segment.id);
+      navigate(`/vacations/${vacationId}`);
+    } catch(err){
+      if(err.message === "401") {
+        getError('Only vacation owners can modify vacation details.');
+      } else if (err.message === '400'){
+        getError('Could not delete. Please try again.');
+      }
+    }
   }
 
   function handleChange(e){
@@ -73,11 +81,10 @@ export default function SegmentForm({vacationId, segment, getError}) {
         <div className="btn-container">
           <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
           {segment ?
-            <button className="danger delete-btn" onClick={handleDelete}>Delete Activity</button>
+            <button className="danger delete-btn" type="button"  onClick={handleDelete}>Delete Activity</button>
           :
             ""
           }
-
         </div>
       </form>
     </div>

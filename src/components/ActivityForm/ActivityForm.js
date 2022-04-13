@@ -90,7 +90,7 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
         <div className="btn-container">
           <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
           {activity ?
-            <button className="danger delete-btn" onClick={handleDelete}>Delete Activity</button>
+            <button className="danger delete-btn" type="button" onClick={handleDelete}>Delete Activity</button>
           :
             ""
           }

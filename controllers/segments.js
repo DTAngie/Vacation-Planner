@@ -2,11 +2,11 @@ const { User, Vacation, Profile, Segment, Activity } = require("../models/index"
 
 module.exports = {
   create,
-  getVacationSegments,
   getOne,
   edit,
   update,
-  getOneForEdit
+  getOneForEdit,
+  delete: deleteOne
 }
 
 
@@ -22,6 +22,7 @@ async function create(req, res) {
         country: country,
         vacationId: req.params.id
       });
+      
       res.json({segmentId: segment.id});
     } else {
       res.status(401).json();
@@ -57,24 +58,8 @@ async function update(req, res) {
       res.status(401).json();
     }
   } catch(err){
+    console.log(err)
     res.status(400).json();
-  }
-}
-
-//TODO: this should just be, vacation GetOne
-async function getVacationSegments(req, res){
-  const profileId = req.user.profile.id;
-  try {
-    const vacation = await Vacation.findOne({where: {id: req.params.id}, include: Profile});
-    if(vacation.profiles.some(profile => profile.id === profileId)) {
-      const segments = await vacation.getSegments({order: ['number']});
-      console.log(segments)
-      res.json(segments);
-    } else {
-      res.status(400).json('Access Denied');
-    }
-  } catch(err){
-    res.status(400).json(err);
   }
 }
 
@@ -114,24 +99,29 @@ async function getOne(req, res){
 async function getOneForEdit(req, res){
   const profileId = req.user.profile.id;
   try {
-    const segment = await Segment.findOne({
-      where: {
-        id: req.params.segmentId
-      }, 
-      include: Vacation
-    });
-
-    const vacation = await Vacation.findByPk(req.params.id, {
-      include: Profile
-    })
-  
-    if(vacation.profiles.some(profile => (profile.id === profileId)  && (profile.profilesVacations.isOwner))) {
+    const segment = await Segment.findByPk(req.params.segmentId, {include: Vacation});
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isVacationOwner(segment.vacation.id)) {
       res.json(segment);
     } else {
-      res.status(400).json('Access Denied');
+      res.status(401).json();
     }
   } catch (err){
-    console.log(err)
-    res.status(400).json(err)
+    res.status(400).json();
+  }
+}
+
+async function deleteOne(req, res){
+  try {
+    const segment = await Segment.findByPk(req.params.segmentId, {include: Vacation});
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isVacationOwner(segment.vacation.id)) {
+      await segment.destroy();
+      res.status(200).json('Success');
+    } else {
+      res.status(401).json();
+    }
+  } catch (err){
+    res.status(400).json();
   }
 }

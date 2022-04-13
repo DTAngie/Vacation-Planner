@@ -27,8 +27,6 @@ const Profile = sequelize.define('profile', {
 });
 
 Profile.prototype.isVacationOwner = function (vacationId){
-  console.log(this);
-  console.log(vacationId)
   if(this.vacations.some(vacation => (vacation.id === vacationId) && (vacation.profilesVacations.isOwner))) {
     // TODO: check with another user to make sure this really works
     return true;
