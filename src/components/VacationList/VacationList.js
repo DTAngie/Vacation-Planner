@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import vacationService from '../../utils/vacationService';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './VacationList.css';
 
-export default function VacationList({user}){
-  const [vacations, setVacations] = useState([]);
-  const navigate = useNavigate();
-  
-  useEffect(async ()=> {
-      try {
-        const data = await vacationService.getVacations(user.id);
-        setVacations(data.vacations);
-      } catch (err) {
-        navigate('/login');
-      }
-  },[]);
-
+export default function VacationList({vacations}){
   return (
     <>
       {vacations ?

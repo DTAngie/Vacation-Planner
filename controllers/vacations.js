@@ -16,7 +16,7 @@ async function create(req, res) {
     const vacation = await Vacation.create({name: name, budget: budget, passportRequired: passportRequired});
     const profile = await Profile.findByPk(req.user.profile.id);
     vacation.addProfile(profile, {through: {isOwner: true}});
-    res.json({vacationId: vacation.id}); 
+    res.json({vacation}); 
   } catch (err) {
     res.status(400).json(err);
   }
@@ -43,7 +43,7 @@ async function update(req, res) {
     if(profile.isVacationOwner(vacation.id)) {
       await vacation.update(req.body);
       await vacation.save();
-      res.json({vacationId: vacation.id});
+      res.json({vacation});
     } else {
       res.status(401).json();
     }
@@ -69,7 +69,6 @@ async function getOne(req, res) {
     });
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isOnVacation(vacation.id)) {
-      console.log('is one vacation')
       res.json({vacation});
     } else {
       res.status(401).json();

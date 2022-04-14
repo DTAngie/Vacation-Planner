@@ -37,9 +37,25 @@ function login(creds) {
   .then(({token}) => tokenService.setToken(token));
 }
 
+function updateProfile(id, profile) {
+  return fetch(`${BASE_URL}${id}`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    body: JSON.stringify(profile)
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
+}
+
 export default {
   signup,
   getUser,
   logout,
-  login
+  login,
+  updateProfile
 }

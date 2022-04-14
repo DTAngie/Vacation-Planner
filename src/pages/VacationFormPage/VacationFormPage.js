@@ -5,20 +5,18 @@ import VacationForm from "../../components/VacationForm/VacationForm";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import vacationService from "../../utils/vacationService";
 
-export default function VacationPage(){
+export default function VacationPage({vacations, getVacation}){
   const [vacation, setVacation] = useState({});
   const [error, setError] = useState();
   const params = useParams();
   const navigate = useNavigate();
 
-  const vacationForm = () => params.id ?
+  const vacationForm = () => Object.keys(vacation).length > 0 ?
       <>
-        <VacationForm getError={getError} vacation={vacation} />
+        <VacationForm getError={getError} vacation={vacation} getVacation={getVacation}/>
       </>
     :
-      <>
-        <VacationForm getError={getError} />
-      </>
+      ""
     ;
 
   function getError(err){
@@ -29,7 +27,6 @@ export default function VacationPage(){
     try {
       if(params.id){
         const data = await vacationService.edit(params.id);
-        console.log(data.vacation)
         setVacation(data.vacation);
       }
     } catch (err) {
@@ -39,7 +36,7 @@ export default function VacationPage(){
 
   return(
     <div className="main grid">
-      <LeftNavigation />
+      <LeftNavigation vacations={vacations} />
       <div className="content">
         {error ? <ErrorMessage error={error} /> : ""}
         {params.id ?
@@ -47,10 +44,10 @@ export default function VacationPage(){
         :
           <h3>Add New Vacation</h3>
         }
-        {Object.keys(vacation).length > 0 ?
+        {params.id ?
           vacationForm()
         :
-          ""
+          <VacationForm getError={getError} getVacation={getVacation} />
         }
       </div>
     </div>

@@ -6,7 +6,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import segmentService from '../../utils/segmentService';
 import activityService from '../../utils/activityService';
 
-export default function ActivityFormPage(){
+export default function ActivityFormPage({vacations}){
   const [segment, setSegment] = useState({});
   const [activity, setActivity] = useState({});
   const [error, setError] = useState();
@@ -47,7 +47,7 @@ export default function ActivityFormPage(){
 
   return (
     <div className='main grid'>
-      <LeftNavigation />
+      <LeftNavigation vacations={vacations}/>
       <div className='content'>
         {error ? <ErrorMessage error={error} /> : ""}
         {params.activityId ?

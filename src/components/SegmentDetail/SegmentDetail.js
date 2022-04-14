@@ -4,7 +4,7 @@ import ActivityList from "../ActivityList/ActivityList";
 
 export default function SegmentDetail({segment}){
   return(
-    <div className='content VacationDetail'>
+    <div className='VacationDetail'>
       <div className='card'>
         <h3>{segment.vacation.name}</h3>
         <div className='left'>

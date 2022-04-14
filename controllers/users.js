@@ -1,12 +1,10 @@
 const { User, Profile } = require('../models/index')
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-
-const SALT_ROUNDS = 6;
 
 module.exports = {
   signup,
-  login
+  login,
+  update
 }
 
 async function signup(req, res) {
@@ -37,6 +35,17 @@ async function login(req, res) {
     });
   } catch (err) {
     return res.status(400).json();
+  }
+}
+
+async function update(req, res) {
+  try {
+    const profile = await Profile.findByPk(req.user.profile.id);
+    await profile.update(req.body);
+    await profile.save();
+    res.status(200).json({profile});
+  } catch(err) {
+    res.status(400).json();
   }
 }
 

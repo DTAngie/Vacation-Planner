@@ -5,7 +5,7 @@ import './VacationDetail.css';
 
 export default function VacationDetail({vacation}){
   return(
-    <div className='content VacationDetail'>
+    <div className='VacationDetail'>
       <div className='card'>
         <h3>{vacation.name}</h3>
         <div className='left'>

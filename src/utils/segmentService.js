@@ -41,7 +41,7 @@ function update(vacationId, segmentId, segment){
   })
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error(res.status)
+    throw new Error(res.status);
   })
 }
 
@@ -51,7 +51,7 @@ function getOne(vacationId, segmentId){
       'Authorization': 'Bearer ' + tokenService.getToken(),
     }
   })
-  .then(res => res.json())
+  .then(res => res.json());
 }
 
 function getOneForEdit(vacationId, segmentId){
@@ -60,7 +60,7 @@ function getOneForEdit(vacationId, segmentId){
       'Authorization': 'Bearer ' + tokenService.getToken(),
     }
   })
-  .then(res => res.json())
+  .then(res => res.json());
 }
 
 function deleteOne(vacationId, segmentId){

@@ -11,16 +11,16 @@ function create(vacation){
     method: 'POST',
     body: JSON.stringify(vacation)
   })
-  .then(res => res.json())
+  .then(res => res.json());
 }
-// TODO: is this ID parameter needed?
-function getVacations(id){
+
+function getVacations(){
   return fetch(`${BASE_URL}`, {
     headers: {
       'Authorization': 'Bearer ' + tokenService.getToken(),
     }
   })
-  .then(res => res.json())
+  .then(res => res.json());
 }
 
 function edit(vacationId) {
@@ -47,10 +47,9 @@ function update(vacationId, vacation){
   })
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error(res.status)
-  })
+    throw new Error(res.status);
+  });
 }
-
 
 function getOne(id) {
   return fetch(`${BASE_URL}${id}`, {
@@ -58,7 +57,7 @@ function getOne(id) {
       'Authorization': 'Bearer ' + tokenService.getToken(),
     }
   })
-  .then(res => res.json())
+  .then(res => res.json());
 }
 
 function getOneForEdit(id){
@@ -67,7 +66,7 @@ function getOneForEdit(id){
       'Authorization': 'Bearer ' + tokenService.getToken(),
     }
   })
-  .then(res => res.json())
+  .then(res => res.json());
 }
 
 function deleteOne(vacationId){

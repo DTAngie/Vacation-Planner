@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import vacationService from '../../utils/vacationService';
 import './VacationForm.css';
 
-export default function VacationForm ({vacation, getError}){
+export default function VacationForm ({vacation, getError, getVacation}){
   const [form, setForm] = useState({});
   const [invalidForm, setInvalidForm] = useState(true);
   const navigate = useNavigate();
@@ -17,8 +17,6 @@ export default function VacationForm ({vacation, getError}){
   }
 
   function handleToggle(e){
-    console.log(e.target.value)
-    console.log(e.target.checked)
     setForm({
      ...form,
      [e.target.name]: e.target.checked
@@ -31,10 +29,12 @@ export default function VacationForm ({vacation, getError}){
       let data;
       if(vacation) {
         data = await vacationService.update(vacation.id, form);
+        getVacation(data.vacation)
       } else {
         data = await vacationService.create(form);
+        getVacation(data.vacation, true);
       }
-      navigate(`/vacations/${data.vacationId}`);
+      navigate(`/vacations/${data.vacation.id}`);
     } catch (err) {
       console.log(err)
       if(err.message === "401") {
@@ -63,7 +63,6 @@ export default function VacationForm ({vacation, getError}){
   }
 
   useEffect(()=> {
-    console.log(vacation)
     if(vacation){
       setForm({
         name: vacation.name,
