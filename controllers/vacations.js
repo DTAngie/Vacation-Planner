@@ -1,28 +1,22 @@
-// const Vacation = require('../models/vacation');
-// const Profile = require('../models/profile');
-const { User, Profile, Vacation, ProfileVacation, Segment } = require('../models/index')
-// const User = require('../models/user');
-// const ProfileVacations = ('../models/profilesVacations');
-// const {Profile, Vacation } = require('../config/database');
+const { Profile, Vacation, Segment } = require('../models/index')
 
 module.exports = {
   create,
   getVacationsByUser,
   getOne,
   getOneForEdit,
-  edit
+  edit,
+  update,
+  delete: deleteOne
 }
 
 async function create(req, res) {
-  // console.log(req.body);
-  // console.log(req.user)
   const { name , budget, passportRequired } = req.body;
   try {
     const vacation = await Vacation.create({name: name, budget: budget, passportRequired: passportRequired});
-    const user = await User.findOne({where:{id: req.user.id}, include: Profile});
-    vacation.addProfile(user.profile, {through: {isOwner: true}});
-    res.status(200).json({}); 
-    // TODO do this need a status?
+    const profile = await Profile.findByPk(req.user.profile.id);
+    vacation.addProfile(profile, {through: {isOwner: true}});
+    res.json({vacationId: vacation.id}); 
   } catch (err) {
     res.status(400).json(err);
   }
@@ -42,59 +36,52 @@ async function edit(req, res) {
   }
 }
 
-async function getVacationsByUser(req, res) {
-  console.log('dashboard')
-  console.log(req.user)
+async function update(req, res) {
   try {
-    const user = await User.findByPk(req.user.id, {include: Profile});
-    // const user = await User.findOne({where: {id: req.user.id}, include: Profile});
-    const vacations = await user.profile.getVacations(); 
-    // TODO: drop this table and see if it works with no data
-    res.json(vacations);
+    const vacation = await Vacation.findByPk(req.params.id);
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isVacationOwner(vacation.id)) {
+      await vacation.update(req.body);
+      await vacation.save();
+      res.json({vacationId: vacation.id});
+    } else {
+      res.status(401).json();
+    }
   } catch(err) {
-    console.log('get err is', err)
+    res.status(400).json();
+  }
+}
+
+async function getVacationsByUser(req, res) {
+  try {
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    res.json({vacations: profile.vacations});
+  } catch(err) {
     res.status(400).json(err);
   }
 }
 
-
-//TODO: ^^will this actually be used? 
-//this should be getVacation Segments... use this in place of the one in segments controller
 async function getOne(req, res) {
-  const profileId = req.user.profile.id;
   try {
-    const vacation = await Vacation.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [
-        {
-          model: Profile,
-          required: true
-        }, {
-          model: Segment
-        }
-      ],
-      order:[
-        [Segment, 'number']
-      ]
+    const vacation = await Vacation.findByPk(req.params.id, {
+      include: Segment,
+      order:[[Segment, 'number']]
     });
-    if(vacation.profiles.some(profile => profile.id === profileId)) {
-      res.json(vacation);
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isOnVacation(vacation.id)) {
+      console.log('is one vacation')
+      res.json({vacation});
     } else {
-      res.status(400).json('Access Denied');
+      res.status(401).json();
     }
   } catch(err) {
-    console.log(err)
     res.status(400).json(err);
   }
 }
 
 async function getOneForEdit(req, res) {
   try {
-    const vacation = await Vacation.findByPk(req.params.id, {
-      include: Profile
-    })
+    const vacation = await Vacation.findByPk(req.params.id)
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isVacationOwner(vacation.id)) {
       res.json({vacation});
@@ -102,6 +89,29 @@ async function getOneForEdit(req, res) {
       res.status(401).json();
     }
   } catch(err) {
+    res.status(400).json();
+  }
+}
+
+async function deleteOne(req, res) {
+  console.log('delete function')
+  try {
+    const vacation = await Vacation.findByPk(req.params.id);
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isVacationOwner(vacation.id)) {
+      console.log(await vacation.getProfiles())
+      // await vacation.removeProfiles();
+      // TODO: this only works for one user. test when multiple users can view vacation.
+      await vacation.setProfiles([]);
+      await vacation.save()
+      console.log(await vacation.getProfiles())
+      await vacation.destroy();
+      res.status(200).json('Success');
+    } else {
+      res.status(401).json();
+    }
+  } catch(err) {
+    console.log(err)
     res.status(400).json();
   }
 }

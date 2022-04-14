@@ -36,6 +36,22 @@ function edit(vacationId) {
   });
 }
 
+function update(vacationId, vacation){
+  return fetch(`${BASE_URL}${vacationId}`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    body: JSON.stringify(vacation)
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error(res.status)
+  })
+}
+
+
 function getOne(id) {
   return fetch(`${BASE_URL}${id}`, {
     headers: {
@@ -54,10 +70,26 @@ function getOneForEdit(id){
   .then(res => res.json())
 }
 
+function deleteOne(vacationId){
+  return fetch(`${BASE_URL}${vacationId}`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+      'Content-Type': 'application/json'
+    },
+    method: 'DELETE',
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
+}
+
 export default {
   create,
   getVacations,
   getOne,
   getOneForEdit,
-  edit
+  edit,
+  update,
+  delete: deleteOne
 }

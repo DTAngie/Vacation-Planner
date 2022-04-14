@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import userService from '../../utils/userService';
+import React from 'react';
 
 export default function FrontPage(){
   return(

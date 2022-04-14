@@ -53,6 +53,10 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
     }
   }
 
+  function handleBack(){
+    navigate(-1);
+  }
+
   useEffect(()=> {
     if(form.date && form.name) {
       setInvalidForm(false)
@@ -79,7 +83,7 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
   },[]);
 
   return (
-    <div className='content ActivityForm'>
+    <div className='ActivityForm'>
       <form onSubmit={handleSubmit}>
         <label htmlFor="date">Date</label>
         <input type="date" name="date" id="date" placeholder="date" onChange={handleChange} defaultValue={activity?.date ? activity.date : ''} required />
@@ -95,6 +99,7 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
         <input type="checkbox" name="ticketsPurchased" id="ticketsPurchased" onChange={handleToggle} defaultChecked={activity?.ticketsPurchased} />
         <div className="btn-container">
           <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
+          <button className="cancel-btn" type="button" onClick={handleBack}>Cancel</button>
           {activity ?
             <button className="danger delete-btn" type="button" onClick={handleDelete}>Delete Activity</button>
           :

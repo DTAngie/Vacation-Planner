@@ -1,7 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Profile = require('./profile')
-const ProfileVacation = require('./profilesVacations');
 
 const Vacation = sequelize.define('vacation', {
   id: {
@@ -23,13 +21,5 @@ const Vacation = sequelize.define('vacation', {
   sequelize,
   modelName: 'vacation'
 });
-
-// Vacation.prototype.comparePassword = function (tryPassword, cb){
-//   bcrypt.compare(tryPassword, this.password, function(err, isMatch) {
-//     if (err) return cb(err);
-
-//     cb(null, isMatch);
-//   });
-// }
 
 module.exports = Vacation;

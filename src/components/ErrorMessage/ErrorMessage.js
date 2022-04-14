@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ErrorMessage.css'
 
 export default function ErrorMessage({error}){

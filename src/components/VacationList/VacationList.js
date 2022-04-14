@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import vacationService from '../../utils/vacationService';
 import './VacationList.css';
 
 export default function VacationList({user}){
-  const location = useLocation()
   const [vacations, setVacations] = useState([]);
+  const navigate = useNavigate();
   
-  useEffect(()=> {
-    async function getUserVacations(){
+  useEffect(async ()=> {
       try {
-        const userVacations = await vacationService.getVacations(user.id);
-        setVacations(userVacations);
+        const data = await vacationService.getVacations(user.id);
+        setVacations(data.vacations);
       } catch (err) {
-        console.log(err)
-        // props.getError(err)
-        // TODO: incorporate error handling here
+        navigate('/login');
       }
-    }
-    getUserVacations();
   },[]);
 
   return (
@@ -32,8 +27,7 @@ export default function VacationList({user}){
               <p>Passport Needed? {vacation.passportRequired ? 'Yes' : 'No'}</p>
             </div>
             <div className='right'>
-              <p><Link to={`/vacations/${vacation.id}/edit`}>Edit Vacation</Link></p>
-              <p><Link to={`/vacations/${vacation.id}`} state={{vacation}}>View Segments</Link></p>
+              <p><Link to={`/vacations/${vacation.id}`}>View More</Link></p>
             </div>
           </div>
         ))

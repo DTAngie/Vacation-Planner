@@ -1,19 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
-import activityService from "../../utils/activityService";
 import ActivityList from "../ActivityList/ActivityList";
 
 export default function SegmentDetail({segment}){
-  // const [activities, setActivities] = useState([]);
-  // TODO:move this logic up one level
-  // useEffect(()=>{
-  //   if(!activities){
-  //     const data = await activityService.getActivities(segment.id);
-  //     setActivities(data);
-  //   } else {
-  //     setActivities(activities);
-  //   }
-  // })
   return(
     <div className='content VacationDetail'>
       <div className='card'>

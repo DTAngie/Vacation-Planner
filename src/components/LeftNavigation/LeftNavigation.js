@@ -10,7 +10,7 @@ export default function LeftNavigation(){
         <li>Edit Profile</li>
       </ul>
       <ul>
-        {/* map through vaations */}
+        {/* map through vacations */}
       </ul>
     </div>
   );

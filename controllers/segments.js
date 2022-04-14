@@ -52,7 +52,7 @@ async function update(req, res) {
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isVacationOwner(segment.vacation.id)) {
       await segment.update(req.body);
-      await segment.save()
+      await segment.save();
       res.json({segmentId: segment.id});
     } else {
       res.status(401).json();
@@ -70,12 +70,6 @@ async function getOne(req, res) {
         {
           model: Vacation,
           required: true,
-          include: [
-            {
-              model: Profile,
-              required: true,
-            }
-          ]
         }, {
           model: Activity
         }
@@ -85,8 +79,8 @@ async function getOne(req, res) {
       ]
     });
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
-    if(profile.isVacationOwner(segment.vacation.id)) {
-      res.json(segment);
+    if(profile.isOnVacation(segment.vacation.id)) {
+      res.json({segment});
     } else {
       res.status(401).json();
     }
@@ -102,6 +96,7 @@ async function getOneForEdit(req, res) {
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isVacationOwner(segment.vacation.id)) {
       res.json(segment);
+      // TODO: change this to be an object
     } else {
       res.status(401).json();
     }

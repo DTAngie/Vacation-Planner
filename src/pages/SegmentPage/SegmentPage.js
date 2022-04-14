@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LeftNavigation from "../../components/LeftNavigation/LeftNavigation";
 import SegmentDetail from "../../components/SegmentDetail/SegmentDetail";
-import vacationService from '../../utils/vacationService';
 import segmentService from '../../utils/segmentService';
 
 export default function SegmentPage(){
-  const location = useLocation();
-  const params = useParams();
   const [segment, setSegment] = useState({});
-  console.log(location)
-  console.log(segment)
+  const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(async ()=> {
       try {
         const data = await segmentService.getOne(params.id, params.segmentId);
-        setSegment(data);
+        setSegment(data.segment);
       } catch (err){
-        console.log(err)
-        // TODO: display this error
+        navigate('/dashboard');
       }
     // }
   },[]);

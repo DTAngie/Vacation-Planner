@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import './SegmentList.css';
 
 export default function SegmentList({vacation}){
-  console.log(vacation)
   return(
     <div className="SegmentList">
       {vacation.segments.map(segment => (

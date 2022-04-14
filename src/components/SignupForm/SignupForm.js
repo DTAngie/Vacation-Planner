@@ -5,9 +5,9 @@ import './SignUpForm.css';
 
 
 export default function SignupForm(props) {
-  const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [invalidForm, setInvalidForm] = useState(true);
+  const navigate = useNavigate();
 
   function handleChange(e){
     setForm({

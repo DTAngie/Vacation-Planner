@@ -34,16 +34,32 @@ export default function VacationForm ({vacation, getError}){
       } else {
         data = await vacationService.create(form);
       }
-      navigate(`/vacations/${data.vacation.id}`);
+      navigate(`/vacations/${data.vacationId}`);
     } catch (err) {
-      getError('Could not update. Please try again.');
+      console.log(err)
+      if(err.message === "401") {
+        getError('Only vacation owners can modify vacation details.');
+      } else if (err.message === '400'){
+        getError('Could not update. Please try again.');
+      }
     }
-    navigate('/dashboard');
   }
 
   async function handleDelete(e){
-    //TODO: do something
-    console.log('delete function')
+    try {
+      await vacationService.delete(vacation.id);
+      navigate('/dashboard');
+    } catch(err) {
+      if(err.message === "401") {
+        getError('Only vacation owners can modify vacation details.');
+      } else if (err.message === '400'){
+        getError('Could not delete. Please try again.');
+      }
+    }
+  }
+
+  function handleBack(){
+    navigate(-1);
   }
 
   useEffect(()=> {
@@ -81,6 +97,7 @@ export default function VacationForm ({vacation, getError}){
           <input type="checkbox" name="passportRequired" id="passport" onChange={handleToggle} defaultChecked={vacation?.passportRequired ? vacation.passportRequired : false} />
           <div className="btn-container">
             <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
+            <button className="cancel-btn" type="button" onClick={handleBack}>Cancel</button>
             {vacation ?
               <button className="danger delete-btn" type="button" onClick={handleDelete}>Delete Vacation</button>
             :

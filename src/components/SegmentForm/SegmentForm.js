@@ -47,6 +47,10 @@ export default function SegmentForm({vacationId, segment, getError}) {
     }
   }
 
+  function handleBack(){
+    navigate(-1);
+  }
+
   useEffect(()=> {
     if(form.number && form.city) {
       setInvalidForm(false);
@@ -67,8 +71,7 @@ export default function SegmentForm({vacationId, segment, getError}) {
   },[]);
 
   return (
-    <div className='content SegmentForm'> 
-    {/* // TODO: content class is inside page and component for all the forms*/}
+    <div className='SegmentForm'> 
       <form onSubmit={handleSubmit}>
         <label htmlFor="segment-number">Segment Number</label>
         <input type="number" name="number" id="segment-number" placeholder="e.g. 1 for the first stop" onChange={handleChange} defaultValue={segment?.number ? segment.number : ''} />
@@ -80,6 +83,7 @@ export default function SegmentForm({vacationId, segment, getError}) {
         <input type="text" name="country" id="country" placeholder="country" onChange={handleChange} defaultValue={segment?.country ? segment.country : ''} />
         <div className="btn-container">
           <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
+          <button className="cancel-btn" type="button" onClick={handleBack}>Cancel</button>
           {segment ?
             <button className="danger delete-btn" type="button"  onClick={handleDelete}>Delete Activity</button>
           :

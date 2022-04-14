@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const vacationsCtrl = require('../../controllers/vacations');
+const isLoggedIn = require('../../middleware/auth');
 
-router.get('/', vacationsCtrl.getVacationsByUser);
-router.get('/:id/edit', vacationsCtrl.edit);
-router.get('/:id/segment', vacationsCtrl.getOneForEdit);
-router.get('/:id', vacationsCtrl.getOne);
-router.post('/', vacationsCtrl.create);
+router.get('/',isLoggedIn, vacationsCtrl.getVacationsByUser);
+router.get('/:id/edit', isLoggedIn, vacationsCtrl.edit);
+router.get('/:id/segment', isLoggedIn, vacationsCtrl.getOneForEdit);
+router.get('/:id', isLoggedIn, vacationsCtrl.getOne);
+router.post('/', isLoggedIn, vacationsCtrl.create);
+router.put('/:id', isLoggedIn, vacationsCtrl.update);
+router.delete('/:id', isLoggedIn, vacationsCtrl.delete);
 
 module.exports = router

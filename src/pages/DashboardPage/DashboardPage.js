@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React from 'react';
 import LeftNavigation from '../../components/LeftNavigation/LeftNavigation';
 import VacationList from '../../components/VacationList/VacationList';
 import './DashboardPage.css';
