@@ -7,7 +7,7 @@ module.exports = {
   delete: deleteOne
 }
 
-async function create(req, res){
+async function create(req, res) {
   const { date, time, name, address, cost, ticketsPurchased } = req.body;
   try {
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
@@ -25,7 +25,7 @@ async function create(req, res){
     } else {
       res.status(401).json();
     }
-  } catch (err){
+  } catch(err) {
     res.status(400).json();
   }
 }
@@ -47,10 +47,10 @@ async function edit(req, res) {
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isVacationOwner(activity.segment.vacation.id)) {
       res.json({activity});
-    } else{
+    } else {
       res.status(401).json();
     }
-  } catch(err){
+  } catch(err) { 
     res.status(400).json();
   }
 }
@@ -77,7 +77,7 @@ async function update(req, res) {
     } else {
       res.status(401).json();
     }
-  } catch(err){
+  } catch(err) {
     res.status(400).json();
   }
 }
@@ -100,10 +100,10 @@ async function deleteOne(req, res) {
     if(profile.isVacationOwner(activity.segment.vacation.id)) {
       await activity.destroy();
       res.status(200).json('Success');
-    } else{
+    } else {
       res.status(401).json();
     }
-  } catch(err){
+  } catch(err) {
     res.status(400).json();
   }
 }

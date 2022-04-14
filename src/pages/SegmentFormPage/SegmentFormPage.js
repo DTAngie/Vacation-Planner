@@ -26,18 +26,14 @@ export default function SegmentFormPage(){
     ;
 
   function getError(err){
-    setError(err)
+    setError(err);
   }
 
   useEffect(async ()=>{
     try {
       if(params.segmentId){
        const data = await segmentService.edit(params.id, params.segmentId);
-       if (data === 'Access Denied'){
-         navigate('/dashboard');
-       } else {
-         setSegment(data.segment);
-       }
+       setSegment(data.segment);
      } else {
        const data = await vacationService.getOneForEdit(params.id);
        setVacation(data.vacation);
@@ -51,8 +47,7 @@ export default function SegmentFormPage(){
     <div className='main grid'>
       <LeftNavigation />
       <div className='content'>
-        {/* TODO: Test the error message */}
-      {error ? <ErrorMessage error={error} /> : ""}
+        {error ? <ErrorMessage error={error} /> : ""}
         {params.segmentId ?
           <h2>Edit Segment</h2>
         :

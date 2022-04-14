@@ -1,7 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Vacation = require('./vacation');
-// const Vacation = sequelize.models.Vacation;
 const ProfileVacation = require('./profilesVacations');
 
 const Profile = sequelize.define('profile', {

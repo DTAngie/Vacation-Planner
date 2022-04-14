@@ -5,8 +5,22 @@ import './ActivityForm.css';
 
 export default function ActivityForm({vacationId, segmentId, activity, getError}){
   const [form, setForm] =  useState({});
-  const navigate = useNavigate();
   const [invalidForm, setInvalidForm] = useState(true);
+  const navigate = useNavigate();
+
+  function handleChange(e){
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  }
+
+  function handleToggle(e){
+    setForm({
+     ...form,
+     [e.target.name]: e.target.checked
+    });
+   }
 
   async function handleSubmit(e){
     e.preventDefault();
@@ -24,13 +38,6 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
         getError('Could not update. Please try again.');
       }
     }
-  }
-
-  function handleChange(e){
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
   }
 
   async function handleDelete(e){
@@ -62,8 +69,7 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
         name: activity.name,
         address: activity.address,
         cost: activity.cost,
-        ticketsPurchased: !!activity.ticketsPurchased
-        // TODO: check database to be sure true/false are being saved to the databse, not null
+        ticketsPurchased: activity.ticketsPurchased
       });
     } else {
       setForm({
@@ -86,7 +92,7 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
         <label htmlFor="cost">Total Cost</label>
         <input type="number" min="0" name="cost" id="cost" placeholder="cost for all travellers" onChange={handleChange} defaultValue={activity?.cost ? activity.cost: ''} />
         <label htmlFor="ticketsPurchased">Tickets Purchased?</label>
-        <input type="checkbox" name="ticketsPurchased" id="ticketsPurchased" onChange={handleChange} checked={activity?.ticketsPurchased} />
+        <input type="checkbox" name="ticketsPurchased" id="ticketsPurchased" onChange={handleToggle} defaultChecked={activity?.ticketsPurchased} />
         <div className="btn-container">
           <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
           {activity ?

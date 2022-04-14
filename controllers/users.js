@@ -1,6 +1,4 @@
 const { User, Profile } = require('../models/index')
-// const User = require('../models/index');
-// const Profile = require('../models/profile');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -11,7 +9,7 @@ module.exports = {
   login
 }
 
-async function signup(req, res){
+async function signup(req, res) {
 // TODO: get rid of profile in parameters
 // TODO: write a check only to create new user if user doesn't exist
   try {

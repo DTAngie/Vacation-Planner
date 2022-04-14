@@ -1,0 +1,94 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import vacationService from '../../utils/vacationService';
+import './VacationForm.css';
+
+export default function VacationForm ({vacation, getError}){
+  const [form, setForm] = useState({});
+  const [invalidForm, setInvalidForm] = useState(true);
+  const navigate = useNavigate();
+  
+
+  function handleChange(e){
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  }
+
+  function handleToggle(e){
+    console.log(e.target.value)
+    console.log(e.target.checked)
+    setForm({
+     ...form,
+     [e.target.name]: e.target.checked
+    });
+   }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      let data;
+      if(vacation) {
+        data = await vacationService.update(vacation.id, form);
+      } else {
+        data = await vacationService.create(form);
+      }
+      navigate(`/vacations/${data.vacation.id}`);
+    } catch (err) {
+      getError('Could not update. Please try again.');
+    }
+    navigate('/dashboard');
+  }
+
+  async function handleDelete(e){
+    //TODO: do something
+    console.log('delete function')
+  }
+
+  useEffect(()=> {
+    console.log(vacation)
+    if(vacation){
+      setForm({
+        name: vacation.name,
+        budget: vacation.budget,
+        passportRequired: vacation.passportRequired
+      });
+    } else {
+      setForm({
+        passportRequired: false
+      });
+    }
+  },[vacation]);
+
+  useEffect(()=> {
+    if(form.name) {
+      setInvalidForm(false)
+    } else {
+      setInvalidForm(true);
+    }
+  },[form]);
+
+  return(
+    <div className="VacationForm">
+      <div className="card">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">Vacation Nickname</label>
+          <input type="text" name="name" id="name" placeholder="Vacation Nickname" onChange={handleChange} defaultValue={vacation?.name ? vacation.name : ''} />
+          <label htmlFor="budget">Budget</label>
+          <input type="number" name="budget" id="budget" step="0.01" min="0" placeholder="Budget" onChange={handleChange} defaultValue={vacation?.budget ? vacation.budget : ''} />
+          <label htmlFor="passport">Passport Required?</label>
+          <input type="checkbox" name="passportRequired" id="passport" onChange={handleToggle} defaultChecked={vacation?.passportRequired ? vacation.passportRequired : false} />
+          <div className="btn-container">
+            <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
+            {vacation ?
+              <button className="danger delete-btn" type="button" onClick={handleDelete}>Delete Vacation</button>
+            :
+              ""
+            }
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}

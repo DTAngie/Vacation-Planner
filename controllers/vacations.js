@@ -9,7 +9,8 @@ module.exports = {
   create,
   getVacationsByUser,
   getOne,
-  getOneForEdit
+  getOneForEdit,
+  edit
 }
 
 async function create(req, res) {
@@ -27,7 +28,21 @@ async function create(req, res) {
   }
 }
 
-async function getVacationsByUser(req, res){
+async function edit(req, res) {
+  try {
+    const vacation = await Vacation.findByPk(req.params.id);
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isVacationOwner(vacation.id)) {
+      res.json({vacation});
+    } else {
+      res.status(401).json();
+    }
+  } catch(err) {
+    res.status(400).json();
+  }
+}
+
+async function getVacationsByUser(req, res) {
   console.log('dashboard')
   console.log(req.user)
   try {
@@ -36,7 +51,7 @@ async function getVacationsByUser(req, res){
     const vacations = await user.profile.getVacations(); 
     // TODO: drop this table and see if it works with no data
     res.json(vacations);
-  } catch (err){
+  } catch(err) {
     console.log('get err is', err)
     res.status(400).json(err);
   }
@@ -45,7 +60,7 @@ async function getVacationsByUser(req, res){
 
 //TODO: ^^will this actually be used? 
 //this should be getVacation Segments... use this in place of the one in segments controller
-async function getOne(req, res){
+async function getOne(req, res) {
   const profileId = req.user.profile.id;
   try {
     const vacation = await Vacation.findOne({
@@ -69,13 +84,13 @@ async function getOne(req, res){
     } else {
       res.status(400).json('Access Denied');
     }
-  } catch(err){
+  } catch(err) {
     console.log(err)
     res.status(400).json(err);
   }
 }
 
-async function getOneForEdit(req, res){
+async function getOneForEdit(req, res) {
   try {
     const vacation = await Vacation.findByPk(req.params.id, {
       include: Profile
@@ -86,7 +101,7 @@ async function getOneForEdit(req, res){
     } else {
       res.status(401).json();
     }
-  } catch (err){
+  } catch(err) {
     res.status(400).json();
   }
 }

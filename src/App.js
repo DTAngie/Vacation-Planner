@@ -35,6 +35,7 @@ function App() {
           <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
           <Route path="/dashboard" element={user ? <DashboardPage user={user} /> : <Navigate to="/login" />} />
           <Route path="/vacations/new" element={user ? <VacationFormPage /> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id/edit" element={user ? <VacationFormPage /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/segments/new" element={user ? <SegmentFormPage /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/segments/:segmentId/edit" element={user ? <SegmentFormPage /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id" element={user ? <VacationPage /> : <Navigate to="/login" /> } />

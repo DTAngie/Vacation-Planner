@@ -1,12 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import LeftNavigation from "../../components/LeftNavigation/LeftNavigation";
-import VacationForm from "../../components/VacationForm/VacationForms";
+import VacationForm from "../../components/VacationForm/VacationForm";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import vacationService from "../../utils/vacationService";
 
-export default function VacationPage (){
+export default function VacationPage(){
+  const [vacation, setVacation] = useState({});
+  const [error, setError] = useState();
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const vacationForm = () => params.id ?
+      <>
+        <VacationForm getError={getError} vacation={vacation} />
+      </>
+    :
+      <>
+        <VacationForm getError={getError} />
+      </>
+    ;
+
+  function getError(err){
+    setError(err);
+  }
+
+  useEffect(async ()=> {
+    try {
+      if(params.id){
+        const data = await vacationService.edit(params.id);
+        console.log(data.vacation)
+        setVacation(data.vacation);
+      }
+    } catch (err) {
+      navigate('/dashboard');
+    }
+  },[]);
+
   return(
     <div className="main grid">
       <LeftNavigation />
-      <VacationForm />
+      <div className="content">
+        {error ? <ErrorMessage error={error} /> : ""}
+        {params.id ?
+          <h3>Edit Vacation</h3>
+        :
+          <h3>Add New Vacation</h3>
+        }
+        {Object.keys(vacation).length > 0 ?
+          vacationForm()
+        :
+          ""
+        }
+      </div>
     </div>
   );
 }

@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import activityService from "../../utils/activityService";
 import segmentService from "../../utils/segmentService";
 import './SegmentForm.css';
 
 export default function SegmentForm({vacationId, segment, getError}) {
   const [form, setForm] =  useState({});
-  const navigate = useNavigate();
   const [invalidForm, setInvalidForm] = useState(true);
+  const navigate = useNavigate();
+
+  function handleChange(e){
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  }
 
   async function handleSubmit(e){
     e.preventDefault();
@@ -41,13 +47,6 @@ export default function SegmentForm({vacationId, segment, getError}) {
     }
   }
 
-  function handleChange(e){
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-  }
-
   useEffect(()=> {
     if(form.number && form.city) {
       setInvalidForm(false);
@@ -68,7 +67,8 @@ export default function SegmentForm({vacationId, segment, getError}) {
   },[]);
 
   return (
-    <div className='content SegmentForm'>
+    <div className='content SegmentForm'> 
+    {/* // TODO: content class is inside page and component for all the forms*/}
       <form onSubmit={handleSubmit}>
         <label htmlFor="segment-number">Segment Number</label>
         <input type="number" name="number" id="segment-number" placeholder="e.g. 1 for the first stop" onChange={handleChange} defaultValue={segment?.number ? segment.number : ''} />

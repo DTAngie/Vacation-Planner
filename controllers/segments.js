@@ -1,11 +1,11 @@
-const { User, Vacation, Profile, Segment, Activity } = require("../models/index");
+const { Vacation, Profile, Segment, Activity } = require("../models/index");
 
 module.exports = {
   create,
   getOne,
+  getOneForEdit,
   edit,
   update,
-  getOneForEdit,
   delete: deleteOne
 }
 
@@ -27,7 +27,7 @@ async function create(req, res) {
     } else {
       res.status(401).json();
     }
-  } catch (err) {
+  } catch(err) {
     res.status(400).json()
   }
 }
@@ -41,7 +41,7 @@ async function edit(req, res) {
     } else {
       res.status(401).json();
     }
-  } catch(err){
+  } catch(err) {
     res.status(400).json();
   }
 }
@@ -54,16 +54,15 @@ async function update(req, res) {
       await segment.update(req.body);
       await segment.save()
       res.json({segmentId: segment.id});
-    } else{
+    } else {
       res.status(401).json();
     }
-  } catch(err){
-    console.log(err)
+  } catch(err) {
     res.status(400).json();
   }
 }
 
-async function getOne(req, res){
+async function getOne(req, res) {
   const profileId = req.user.profile.id;
   try {
     const segment = await Segment.findByPk(req.params.segmentId, { 
@@ -91,12 +90,12 @@ async function getOne(req, res){
     } else {
       res.status(401).json();
     }
-  } catch (err){
+  } catch(err) {
     res.status(400).json();
   }
 }
 
-async function getOneForEdit(req, res){
+async function getOneForEdit(req, res) {
   const profileId = req.user.profile.id;
   try {
     const segment = await Segment.findByPk(req.params.segmentId, {include: Vacation});
@@ -106,12 +105,12 @@ async function getOneForEdit(req, res){
     } else {
       res.status(401).json();
     }
-  } catch (err){
+  } catch(err) {
     res.status(400).json();
   }
 }
 
-async function deleteOne(req, res){
+async function deleteOne(req, res) {
   try {
     const segment = await Segment.findByPk(req.params.segmentId, {include: Vacation});
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
@@ -121,7 +120,7 @@ async function deleteOne(req, res){
     } else {
       res.status(401).json();
     }
-  } catch (err){
+  } catch(err) {
     res.status(400).json();
   }
 }

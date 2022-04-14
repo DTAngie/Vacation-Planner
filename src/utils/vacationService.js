@@ -23,6 +23,18 @@ function getVacations(id){
   .then(res => res.json())
 }
 
+function edit(vacationId) {
+  return fetch(`${BASE_URL}${vacationId}/edit`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+      'Content-Type': 'application/json'
+    },
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
+}
 
 function getOne(id) {
   return fetch(`${BASE_URL}${id}`, {
@@ -46,5 +58,6 @@ export default {
   create,
   getVacations,
   getOne,
-  getOneForEdit
+  getOneForEdit,
+  edit
 }

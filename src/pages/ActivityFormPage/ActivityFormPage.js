@@ -34,11 +34,7 @@ export default function ActivityFormPage(){
     try {
        if(params.activityId){
         const data = await activityService.edit(params.id, params.segmentId, params.activityId);
-        if (data === 'Access Denied'){
-          navigate('/dashboard');
-        } else {
-          setActivity(data.activity);
-        }
+        setActivity(data.activity);
       } else {
         const data = await segmentService.getOneForEdit(params.id, params.segmentId);
         setSegment(data);
@@ -53,7 +49,7 @@ export default function ActivityFormPage(){
     <div className='main grid'>
       <LeftNavigation />
       <div className='content'>
-      {error ? <ErrorMessage error={error} /> : ""}
+        {error ? <ErrorMessage error={error} /> : ""}
         {params.activityId ?
           <h2>Edit Activity</h2>
         :
