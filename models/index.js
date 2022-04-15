@@ -6,7 +6,7 @@ const Segment = require('./segment');
 const Activity = require('./activity');
 
 /*** Associations ***/
-User.hasOne(Profile, {foreignKey: 'user_id'}); //TODO: test to make sure this works
+User.hasOne(Profile, {foreignKey: 'user_id'});
 Profile.belongsToMany(Vacation, {through: ProfileVacation, foreignKey: 'profileId'});
 Vacation.belongsToMany(Profile, {through: ProfileVacation, foreignKey: 'vacationId'});
 Vacation.hasMany(Segment, {foreignKey: 'vacation_id'});

@@ -16,7 +16,18 @@ const Vacation = sequelize.define('vacation', {
     type: DataTypes.DECIMAL(11,2),
     min: 0
   },
-  passportRequired: DataTypes.BOOLEAN
+  startDate: {
+    type: DataTypes.DATE,
+    field: 'start_date'
+  },
+  endDate: {
+    type: DataTypes.DATE,
+    field: 'end_date'
+  },
+  passportRequired: {
+    type: DataTypes.BOOLEAN,
+    field: 'passport_required'
+  }
 }, {
   sequelize,
   modelName: 'vacation'

@@ -23,7 +23,7 @@ async function create(req, res) {
         segmentId: segment.id
       });
       if(parseInt(activity.cost) !== 0){
-        segment.segmentCost = parseInt(segment.segmentCost) + parseInt(activity.cost);
+        segment.cost = parseInt(segment.cost) + parseInt(activity.cost);
         await segment.save()
       }
       res.status(200).json('Success');
@@ -70,7 +70,7 @@ async function update(req, res) {
       await activity.update(req.body);
       await activity.save()
       if(parseInt(req.body.cost) !== prevCost) {
-        activity.segment.segmentCost = (parseInt(activity.cost) - prevCost) + parseInt(activity.segment.segmentCost);
+        activity.segment.cost = (parseInt(activity.cost) - prevCost) + parseInt(activity.segment.cost);
         await activity.segment.save();
       }
       res.status(200).json('Success');
@@ -92,7 +92,7 @@ async function deleteOne(req, res) {
       await activity.destroy();
       if(prevCost !== 0) {
         const segment = await Segment.findByPk(prevSegmentId);
-        segment.segmentCost = parseInt(segment.segmentCost) - prevCost;
+        segment.cost = parseInt(segment.cost) - prevCost;
         await segment.save();
       }
       res.status(200).json('Success');

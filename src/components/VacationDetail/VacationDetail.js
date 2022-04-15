@@ -13,6 +13,8 @@ export default function VacationDetail({vacation}){
           <p>{vacation.passportRequired ? '' : 'No'}Passport Needed</p>
         </div>
         <div className='right'>
+          {/* TODO: change these to li's and update css appropriateley*/}
+          <p className="back-link"><Link to={`/dashboard`}>Back to Dashboard</Link></p>
           <p><Link to={`/vacations/${vacation.id}/edit`}>Edit Vacation</Link></p>
           <p><Link to={`/vacations/${vacation.id}/segments/new`}>Add Segment</Link></p>
         </div>

@@ -98,12 +98,12 @@ async function deleteOne(req, res) {
     const vacation = await Vacation.findByPk(req.params.id);
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isVacationOwner(vacation.id)) {
-      console.log(await vacation.getProfiles())
+      // console.log(await vacation.getProfiles())
       // await vacation.removeProfiles();
       // TODO: this only works for one user. test when multiple users can view vacation.
-      await vacation.setProfiles([]);
-      await vacation.save()
-      console.log(await vacation.getProfiles())
+      // await vacation.setProfiles([]);
+      // await vacation.save()
+      // console.log(await vacation.getProfiles())
       await vacation.destroy();
       res.status(200).json('Success');
     } else {

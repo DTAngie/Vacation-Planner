@@ -20,7 +20,7 @@ async function create(req, res) {
         city: city,
         state: state,
         country: country,
-        segmentCost: 0,
+        cost: 0,
         vacationId: req.params.id
       });   
       res.json({segmentId: segment.id});

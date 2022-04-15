@@ -16,7 +16,7 @@ export default function SegmentList({vacation}){
               <p className="segment-second-line">{segment.country}</p>
             </div>
             <div className="segment-content">
-              <p>Segment Cost: {new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(segment.segmentCost)}</p>
+              <p>Segment Cost: {new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(segment.cost)}</p>
               <p>Click to View Activities</p>
             </div>
           </div>

@@ -20,10 +20,10 @@ const Segment = sequelize.define('segment', {
     }
   },
   country: DataTypes.STRING,
-  segmentCost: {
+  cost: {
     type: DataTypes.DECIMAL(11,2),
     min: 0,
-    field: 'segment_cost'
+    field: 'cost'
   },
   vacationId: {
     type: DataTypes.INTEGER,
