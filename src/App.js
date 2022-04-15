@@ -11,6 +11,7 @@ import VacationPage from './pages/VacationPage/VacationPage';
 import SegmentPage from './pages/SegmentPage/SegmentPage';
 import ActivityFormPage from './pages/ActivityFormPage/ActivityFormPage';
 import ProfileFormPage from './pages/ProfileFormPage/ProfileFormPage';
+import AddFriendPage from './pages/AddFriendPage/AddFriendPage';
 import userService from './utils/userService';
 import vacationService from './utils/vacationService';
 import './App.css';
@@ -71,12 +72,13 @@ function App() {
           <Route path="/profile/edit" element={user ? <ProfileFormPage user={user} updateProfile={updateProfile} vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/vacations/new" element={user ? <VacationFormPage getVacation={getVacation} vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/edit" element={user ? <VacationFormPage getVacation={getVacation} removeVacation={removeVacation} vacations={vacations}/> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id/addFriend" element={user ? <AddFriendPage vacations={vacations} /> : <Navigate to="login"/>} />
           <Route path="/vacations/:id/segments/new" element={user ? <SegmentFormPage vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/segments/:segmentId/edit" element={user ? <SegmentFormPage vacations={vacations} /> : <Navigate to="/login" />} />
-          <Route path="/vacations/:id" element={user ? <VacationPage vacations={vacations} /> : <Navigate to="/login" /> } />
-          <Route path="/vacations/:id/segments/:segmentId" element={user ? <SegmentPage vacations={vacations} /> : <Navigate to="/login" /> } />
-          <Route path="/vacations/:id/segments/:segmentId/activities/new" element={user ? <ActivityFormPage vacations={vacations} /> : <Navigate to="/login" /> } />
-          <Route path="/vacations/:id/segments/:segmentId/activities/:activityId/edit" element={user ? <ActivityFormPage vacations={vacations} /> : <Navigate to="/login" /> } />
+          <Route path="/vacations/:id" element={user ? <VacationPage vacations={vacations} /> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id/segments/:segmentId" element={user ? <SegmentPage vacations={vacations} /> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id/segments/:segmentId/activities/new" element={user ? <ActivityFormPage vacations={vacations} /> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id/segments/:segmentId/activities/:activityId/edit" element={user ? <ActivityFormPage vacations={vacations} /> : <Navigate to="/login" />} />
         </Routes>
     </div>
   );

@@ -83,6 +83,21 @@ function deleteOne(vacationId){
   });
 }
 
+function addFriend(id, email){
+  return fetch(`${BASE_URL}${id}/addFriend`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(email)
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
+}
+
 export default {
   create,
   getVacations,
@@ -90,5 +105,6 @@ export default {
   getOneForEdit,
   edit,
   update,
-  delete: deleteOne
+  delete: deleteOne,
+  addFriend
 }

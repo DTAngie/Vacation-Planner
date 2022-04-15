@@ -93,6 +93,10 @@ export default function VacationForm ({vacation, getError, getVacation, removeVa
           <input type="text" name="name" id="name" placeholder="Vacation Nickname" onChange={handleChange} defaultValue={vacation?.name ? vacation.name : ''} />
           <label htmlFor="budget">Budget</label>
           <input type="number" name="budget" id="budget" step="0.01" min="0" placeholder="Budget" onChange={handleChange} defaultValue={vacation?.budget ? vacation.budget : ''} />
+          <label htmlFor="start-date">Start Date</label>
+          <input type="date" name="startDate" id="start-date" placeholder="Start Date" onChange={handleChange} defaultValue={vacation?.startDate ? vacation.startDate : ''} />
+          <label htmlFor="end-date">End Date</label>
+          <input type="date" name="endDate" id="end-date" placeholder="End Date" onChange={handleChange} defaultValue={vacation?.endDate ? vacation.endDate : ''} />
           <label htmlFor="passport">Passport Required?</label>
           <input type="checkbox" name="passportRequired" id="passport" onChange={handleToggle} defaultChecked={vacation?.passportRequired ? vacation.passportRequired : false} />
           <div className="btn-container">

@@ -10,6 +10,7 @@ export default function VacationList({vacations}){
           <div className='card' key={vacation.id}>
             <h3>{vacation.name}</h3>
             <div className='left'>
+              <p>{new Date(`${vacation.startDate}T00:00:00`).toDateString()} to {new Date(`${vacation.endDate}T00:00:00`).toDateString()}</p>
               <p>Budget: {new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(vacation.budget)}</p>
               <p>{vacation.passportRequired ? '' : 'No'} Passport Needed</p>
             </div>

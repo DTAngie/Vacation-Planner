@@ -8,12 +8,10 @@ module.exports = {
 }
 
 async function signup(req, res) {
-// TODO: get rid of profile in parameters
-// TODO: write a check only to create new user if user doesn't exist
-  try {
+ try {
     const { email, password } = req.body;
     const user = await User.create({email: email, password: password});
-    const profile = await Profile.create({owner: user.id});
+    await Profile.create({owner: user.id});
     await user.getProfile();
     const token = createJWT(user);
     res.json({token});

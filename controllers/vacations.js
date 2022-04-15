@@ -1,4 +1,4 @@
-const { Profile, Vacation, Segment } = require('../models/index')
+const { Profile, Vacation, Segment, User } = require('../models/index')
 
 module.exports = {
   create,
@@ -7,13 +7,20 @@ module.exports = {
   getOneForEdit,
   edit,
   update,
-  delete: deleteOne
+  delete: deleteOne,
+  addFriend
 }
 
 async function create(req, res) {
-  const { name , budget, passportRequired } = req.body;
+  const { name , budget, startDate, endDate, passportRequired } = req.body;
   try {
-    const vacation = await Vacation.create({name: name, budget: budget, passportRequired: passportRequired});
+    const vacation = await Vacation.create({
+      name: name,
+      budget: budget,
+      startDate: startDate,
+      endDate: endDate,
+      passportRequired: passportRequired
+    });
     const profile = await Profile.findByPk(req.user.profile.id);
     vacation.addProfile(profile, {through: {isOwner: true}});
     res.json({vacation}); 
@@ -93,7 +100,6 @@ async function getOneForEdit(req, res) {
 }
 
 async function deleteOne(req, res) {
-  console.log('delete function')
   try {
     const vacation = await Vacation.findByPk(req.params.id);
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
@@ -112,5 +118,22 @@ async function deleteOne(req, res) {
   } catch(err) {
     console.log(err)
     res.status(400).json();
+  }
+}
+
+async function addFriend(req, res) {
+  try {
+    const vacation = await Vacation.findByPk(req.params.id);
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isOnVacation(vacation.id)) {
+      const friend = await User.findOne({where:{email: req.body.email}, include: Profile});
+      vacation.addProfile(friend.profile);
+      res.json({friend: friend.profile});
+    } else {
+      res.status(401).json();
+    }
+  } catch(err) {
+    console.log(err)
+    res.status(400).json()
   }
 }
