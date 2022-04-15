@@ -20,9 +20,9 @@ async function create(req, res) {
         city: city,
         state: state,
         country: country,
+        segmentCost: 0,
         vacationId: req.params.id
-      });
-      
+      });   
       res.json({segmentId: segment.id});
     } else {
       res.status(401).json();
@@ -48,9 +48,9 @@ async function edit(req, res) {
 
 async function update(req, res) {
   try {
-    const segment = await Segment.findByPk(req.params.segmentId, { include: Vacation});
+    const segment = await Segment.findByPk(req.params.segmentId);
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
-    if(profile.isVacationOwner(segment.vacation.id)) {
+    if(profile.isVacationOwner(segment.vacationId)) {
       await segment.update(req.body);
       await segment.save();
       res.json({segmentId: segment.id});
@@ -63,8 +63,7 @@ async function update(req, res) {
 }
 
 async function getOne(req, res) {
-  const profileId = req.user.profile.id;
-  try {
+    try {
     const segment = await Segment.findByPk(req.params.segmentId, { 
       include: [
         {
@@ -75,7 +74,8 @@ async function getOne(req, res) {
         }
       ],
       order: [
-        [Activity, 'date']
+        [Activity, 'date'],
+        [Activity, 'time']
       ]
     });
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
@@ -90,13 +90,11 @@ async function getOne(req, res) {
 }
 
 async function getOneForEdit(req, res) {
-  const profileId = req.user.profile.id;
   try {
     const segment = await Segment.findByPk(req.params.segmentId, {include: Vacation});
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isVacationOwner(segment.vacation.id)) {
-      res.json(segment);
-      // TODO: change this to be an object
+      res.json({segment});
     } else {
       res.status(401).json();
     }
@@ -107,9 +105,9 @@ async function getOneForEdit(req, res) {
 
 async function deleteOne(req, res) {
   try {
-    const segment = await Segment.findByPk(req.params.segmentId, {include: Vacation});
+    const segment = await Segment.findByPk(req.params.segmentId);
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
-    if(profile.isVacationOwner(segment.vacation.id)) {
+    if(profile.isVacationOwner(segment.vacationId)) {
       await segment.destroy();
       res.status(200).json('Success');
     } else {

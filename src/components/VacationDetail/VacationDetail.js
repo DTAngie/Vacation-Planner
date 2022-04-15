@@ -9,8 +9,8 @@ export default function VacationDetail({vacation}){
       <div className='card'>
         <h3>{vacation.name}</h3>
         <div className='left'>
-          <p>Budget: {vacation.budget}</p>
-          <p>Passport Needed? {vacation.passportRequired ? 'Yes' : 'No'}</p>
+          <p>Budget: {new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(vacation.budget)}</p>
+          <p>{vacation.passportRequired ? '' : 'No'}Passport Needed</p>
         </div>
         <div className='right'>
           <p><Link to={`/vacations/${vacation.id}/edit`}>Edit Vacation</Link></p>

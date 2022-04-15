@@ -37,6 +37,10 @@
   margin-left: 5%;
 }
 
+.SegmentList .segment-content p {
+  margin: 5px 0;
+}
+
 .SegmentList >  a  p {
   color: #272727;
   font-weight: normal;

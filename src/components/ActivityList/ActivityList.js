@@ -7,9 +7,9 @@ export default function ActivityList({segment}){
 
   function convertTime(timeStr){
     if(!timeStr) return '';
-    let timeArray = timeStr.split(':');
+    let timeArray = timeStr.slice(0, -3).split(':');
     if(parseInt(timeArray[0]) <= 12) {
-      return `${timeStr} AM`;
+      return `${timeStr.slice(0, -3)} AM`;
     }
     timeArray[0] = parseInt(timeArray[0]) - 12;
     return `${timeArray.join(':')} PM`;
@@ -23,13 +23,13 @@ export default function ActivityList({segment}){
         >
           <div className="activity" >
             <div className="activity-header">
-              <p>{new Date(activity.date).toDateString()}</p>
+              <p>{new Date(`${activity.date}T00:00:00`).toDateString()}</p>
               <p id="activity-name">{activity.name}</p>
             </div>
             <div className="activity-content">
               <p>{convertTime(activity.time)}</p>
               <p>Address: {activity.address}</p>
-              <p>Total Cost: {activity.cost}</p>
+              <p>Total Cost: {new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(activity.cost)}</p>
               <p>Tickets Purchased? {activity.ticketsPurchased ? 'yes' : 'no'}</p>
             </div>
           </div>

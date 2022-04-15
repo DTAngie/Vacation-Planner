@@ -37,7 +37,7 @@ export default function ActivityFormPage({vacations}){
         setActivity(data.activity);
       } else {
         const data = await segmentService.getOneForEdit(params.id, params.segmentId);
-        setSegment(data);
+        setSegment(data.segment);
       }
     } catch (err){
       navigate('/dashboard');

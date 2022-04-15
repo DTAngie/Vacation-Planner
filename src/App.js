@@ -47,12 +47,13 @@ function App() {
 
   
   useEffect(async ()=> {
-      try {
-        const data = await vacationService.getVacations(user.id);
-        setVacations(data.vacations);
-      } catch (err) {
-        navigate('/login');
-      }
+    document.title = "Vacation Planner";
+    try {
+      const data = await vacationService.getVacations(user.id);
+      setVacations(data.vacations);
+    } catch (err) {
+      navigate('/login');
+    }
   },[]);
 
   return (
