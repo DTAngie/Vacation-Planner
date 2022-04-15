@@ -5,7 +5,7 @@ import VacationForm from "../../components/VacationForm/VacationForm";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import vacationService from "../../utils/vacationService";
 
-export default function VacationPage({vacations, getVacation}){
+export default function VacationPage({vacations, getVacation, removeVacation}){
   const [vacation, setVacation] = useState({});
   const [error, setError] = useState();
   const params = useParams();
@@ -13,7 +13,7 @@ export default function VacationPage({vacations, getVacation}){
 
   const vacationForm = () => Object.keys(vacation).length > 0 ?
       <>
-        <VacationForm getError={getError} vacation={vacation} getVacation={getVacation}/>
+        <VacationForm getError={getError} vacation={vacation} getVacation={getVacation} removeVacation={removeVacation} />
       </>
     :
       ""

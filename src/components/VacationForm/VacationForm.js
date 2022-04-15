@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import vacationService from '../../utils/vacationService';
 import './VacationForm.css';
 
-export default function VacationForm ({vacation, getError, getVacation}){
+export default function VacationForm ({vacation, getError, getVacation, removeVacation}){
   const [form, setForm] = useState({});
   const [invalidForm, setInvalidForm] = useState(true);
   const navigate = useNavigate();
@@ -48,6 +48,7 @@ export default function VacationForm ({vacation, getError, getVacation}){
   async function handleDelete(e){
     try {
       await vacationService.delete(vacation.id);
+      removeVacation(vacation.id);
       navigate('/dashboard');
     } catch(err) {
       if(err.message === "401") {

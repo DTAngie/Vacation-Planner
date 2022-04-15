@@ -45,6 +45,10 @@ function App() {
     }
   }
 
+  function removeVacation(id){
+    setVacations(vacations.filter(vacation=>(vacation.id !== id)));
+  }
+
   
   useEffect(async ()=> {
     document.title = "Vacation Planner";
@@ -66,7 +70,7 @@ function App() {
           <Route path="/dashboard" element={user ? <DashboardPage user={user} vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/profile/edit" element={user ? <ProfileFormPage user={user} updateProfile={updateProfile} vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/vacations/new" element={user ? <VacationFormPage getVacation={getVacation} vacations={vacations} /> : <Navigate to="/login" />} />
-          <Route path="/vacations/:id/edit" element={user ? <VacationFormPage getVacation={getVacation} vacations={vacations}/> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id/edit" element={user ? <VacationFormPage getVacation={getVacation} removeVacation={removeVacation} vacations={vacations}/> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/segments/new" element={user ? <SegmentFormPage vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/segments/:segmentId/edit" element={user ? <SegmentFormPage vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id" element={user ? <VacationPage vacations={vacations} /> : <Navigate to="/login" /> } />
