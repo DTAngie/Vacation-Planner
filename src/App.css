@@ -106,3 +106,7 @@ p.guide {
 .back-link a {
   color: rgb(122, 101, 101);
 }
+
+.left li, .right li {
+  margin-bottom: 5px;
+}

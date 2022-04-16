@@ -84,13 +84,27 @@ function deleteOne(vacationId){
 }
 
 function addFriend(id, email){
-  return fetch(`${BASE_URL}${id}/addFriend`, {
+  return fetch(`${BASE_URL}${id}/friends`, {
     headers: {
       'Authorization': 'Bearer ' + tokenService.getToken(),
       'Content-Type': 'application/json'
     },
     method: 'POST',
     body: JSON.stringify(email)
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
+}
+
+function removeFriend(id, profileId){
+  return fetch(`${BASE_URL}${id}/friends/${profileId}`, {
+    headers: {
+      'Authorization': 'Bearer ' + tokenService.getToken(),
+      'Content-Type': 'application/json'
+    },
+    method: 'DELETE',
   })
   .then(res => {
     if (res.ok) return res.json();
@@ -106,5 +120,6 @@ export default {
   edit,
   update,
   delete: deleteOne,
-  addFriend
+  addFriend,
+  removeFriend
 }

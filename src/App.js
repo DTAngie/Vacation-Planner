@@ -75,7 +75,7 @@ function App() {
           <Route path="/vacations/:id/addFriend" element={user ? <AddFriendPage vacations={vacations} /> : <Navigate to="login"/>} />
           <Route path="/vacations/:id/segments/new" element={user ? <SegmentFormPage vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/segments/:segmentId/edit" element={user ? <SegmentFormPage vacations={vacations} /> : <Navigate to="/login" />} />
-          <Route path="/vacations/:id" element={user ? <VacationPage vacations={vacations} /> : <Navigate to="/login" />} />
+          <Route path="/vacations/:id" element={user ? <VacationPage vacations={vacations} user={user} /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/segments/:segmentId" element={user ? <SegmentPage vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/segments/:segmentId/activities/new" element={user ? <ActivityFormPage vacations={vacations} /> : <Navigate to="/login" />} />
           <Route path="/vacations/:id/segments/:segmentId/activities/:activityId/edit" element={user ? <ActivityFormPage vacations={vacations} /> : <Navigate to="/login" />} />

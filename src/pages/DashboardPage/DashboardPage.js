@@ -4,7 +4,6 @@ import VacationList from '../../components/VacationList/VacationList';
 import './DashboardPage.css';
 
 export default function DashboardPage({user, vacations}){
-  console.log(user)
   return (
     <div className="main grid DashboardPage">
       <LeftNavigation vacations={vacations} />

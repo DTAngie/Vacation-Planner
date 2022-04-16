@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import './ActivityList.css';
 
 export default function ActivityList({segment}){
-  console.log(segment)
-
   function convertTime(timeStr){
     if(!timeStr) return '';
     let timeArray = timeStr.slice(0, -3).split(':');

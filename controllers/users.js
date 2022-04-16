@@ -11,7 +11,7 @@ async function signup(req, res) {
  try {
     const { email, password } = req.body;
     const user = await User.create({email: email, password: password});
-    await Profile.create({owner: user.id});
+    await Profile.create({owner: user.id, username: email});
     await user.getProfile();
     const token = createJWT(user);
     res.json({token});

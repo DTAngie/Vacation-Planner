@@ -8,7 +8,8 @@ module.exports = {
   edit,
   update,
   delete: deleteOne,
-  addFriend
+  addFriend,
+  removeFriend
 }
 
 async function create(req, res) {
@@ -71,12 +72,20 @@ async function getVacationsByUser(req, res) {
 async function getOne(req, res) {
   try {
     const vacation = await Vacation.findByPk(req.params.id, {
-      include: Segment,
-      order:[[Segment, 'number']]
+      include: [
+        {
+          model: Segment,
+          order:[[Segment, 'number']]
+        },
+        {
+          model: Profile
+        }
+      ]
     });
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isOnVacation(vacation.id)) {
-      res.json({vacation});
+      const isOwner = profile.isVacationOwner(vacation.id);
+      res.json({vacation, isOwner});
     } else {
       res.status(401).json();
     }
@@ -104,14 +113,11 @@ async function deleteOne(req, res) {
     const vacation = await Vacation.findByPk(req.params.id);
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isVacationOwner(vacation.id)) {
-      // console.log(await vacation.getProfiles())
-      // await vacation.removeProfiles();
-      // TODO: this only works for one user. test when multiple users can view vacation.
-      // await vacation.setProfiles([]);
-      // await vacation.save()
-      // console.log(await vacation.getProfiles())
       await vacation.destroy();
       res.status(200).json('Success');
+    } else if(profile.isOnVacation(vacation.id)) {
+      profile.removeVacation(vacation);
+      res.status(200).json();
     } else {
       res.status(401).json();
     }
@@ -135,5 +141,21 @@ async function addFriend(req, res) {
   } catch(err) {
     console.log(err)
     res.status(400).json()
+  }
+}
+
+async function removeFriend(req, res) {
+  try {
+    const vacation = await Vacation.findByPk(req.params.id);
+    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    if(profile.isOnVacation(vacation.id)) {
+      const friend = await Profile.findByPk(req.params.friendId, {include: Vacation});
+      await friend.removeVacation(vacation);
+      res.status(200).json('Success');
+    } else {
+      res.status(401).json();
+    }
+  } catch(err) {
+    res.status(400).json();
   }
 }

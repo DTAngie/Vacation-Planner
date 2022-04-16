@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate , useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import vacationService from '../../utils/vacationService';
 
-export default function AddFriendForm({getError}){
+export default function AddFriendForm({vacationId, getError}){
   const [form, setForm] = useState({});
   const [invalidForm, setInvalidForm] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation();
 
   function handleChange(e){
     setForm({
@@ -18,13 +17,13 @@ export default function AddFriendForm({getError}){
   async function handleSubmit(e){
     e.preventDefault();
     try {
-      await vacationService.addFriend(location.state.vacationId, form);
-      navigate(`/vacations/${location.state.vacationId}`);
+      await vacationService.addFriend(vacationId, form);
+      navigate(`/vacations/${vacationId}`);
     } catch(err) {
       if(err.message === "401") {
         getError('Not authorized to share this vacation.');
       } else if (err.message === '400'){
-        getError('Could not update. Please try again.');
+        getError('Could not find that friend.');
       }
     }
   }

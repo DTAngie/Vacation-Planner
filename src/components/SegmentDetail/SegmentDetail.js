@@ -8,7 +8,9 @@ export default function SegmentDetail({segment}){
       <div className='card'>
         <h3>{segment.vacation.name}</h3>
         <div className='left'>
-          <p>{segment.city}</p>
+          <ul>
+            <li>{segment.city}</li>
+          </ul>
         </div>
         <div className='right'>
           <ul>

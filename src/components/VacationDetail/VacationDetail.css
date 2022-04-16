@@ -19,3 +19,21 @@
   width: 30%;
   display: inline-block;
 }
+
+.VacationDetail .vacationers {
+  margin-top: 20px;
+}
+
+.VacationDetail .vacationers li {
+  margin: 5px 0;
+}
+
+.VacationDetail .vacationers li p {
+  display: inline-block;
+}
+
+.VacationDetail .vacationers li .remove {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #ca3e13;
+}
