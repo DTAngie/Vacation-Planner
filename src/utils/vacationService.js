@@ -11,7 +11,10 @@ function create(vacation){
     method: 'POST',
     body: JSON.stringify(vacation)
   })
-  .then(res => res.json());
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error(res.status);
+  });
 }
 
 function getVacations(){

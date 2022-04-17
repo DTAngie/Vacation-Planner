@@ -36,6 +36,20 @@ export default function VacationDetail({vacation, isOwner, user, getError}){
     }
   }
 
+  function displayDate(start, end){
+    if (start && end ) {
+      return (
+        <p>{new Date(`${start}T00:00:00`).toDateString()} to {new Date(`${end}T00:00:00`).toDateString()}</p>
+      );
+    } else if ( start ) {
+      return (
+        <p>{new Date(`${start}T00:00:00`).toDateString()}</p>
+      );
+    } else {
+      return "";
+    }
+  }
+
   useEffect(()=>{
     setVacationers(vacation.profiles);
   }, []);
@@ -46,7 +60,7 @@ export default function VacationDetail({vacation, isOwner, user, getError}){
         <h3>{vacation.name}</h3>
         <div className='left'>
           <ul>
-            <li>{new Date(`${vacation.startDate}T00:00:00`).toDateString()} to {new Date(`${vacation.endDate}T00:00:00`).toDateString()}</li>
+            <li>{displayDate(vacation.startDate, vacation.endDate)}</li>
             <li>Budget: {new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(vacation.budget)}</li>
             <li>{vacation.passportRequired ? '' : 'No'}Passport Needed</li>
           </ul>

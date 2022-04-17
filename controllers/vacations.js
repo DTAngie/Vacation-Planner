@@ -15,6 +15,7 @@ module.exports = {
 async function create(req, res) {
   const { name , budget, startDate, endDate, passportRequired } = req.body;
   try {
+    if (new Date(startDate) > new Date(endDate) || (!startDate && endDate)) throw new Error('Start date cannot be greater than end date');
     const vacation = await Vacation.create({
       name: name,
       budget: budget,
@@ -49,6 +50,7 @@ async function update(req, res) {
     const vacation = await Vacation.findByPk(req.params.id);
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isVacationOwner(vacation.id)) {
+      if ((req.body.startDate && req.body.endDate) && new Date(req.body.startDate) > new Date(req.body.endDate) || (!req.body.startDate && req.body.endDate)) throw new Error('Start date cannot be greater than end date');
       await vacation.update(req.body);
       await vacation.save();
       res.json({vacation});
@@ -62,7 +64,10 @@ async function update(req, res) {
 
 async function getVacationsByUser(req, res) {
   try {
-    const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
+    const profile = await Profile.findByPk(req.user.profile.id, {
+      include: Vacation,
+      order: [[Vacation, 'startDate']]
+    });
     res.json({vacations: profile.vacations});
   } catch(err) {
     res.status(400).json(err);

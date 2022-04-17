@@ -38,11 +38,15 @@ function App() {
   
   function getVacation(vacationData, isNewVacation=false){
     if(isNewVacation){
-      setVacations([...vacations, vacationData]);
+      const vacationArray = [...vacations, vacationData];
+      vacationArray.sort((a,b) => new Date(a.startDate) - new Date(b.startDate));
+      setVacations(vacationArray);
     } else {
-      setVacations(vacations.map(vacation=>(
+      const vacationArray = vacations.map(vacation=>(
         vacation.id === vacationData.id ? vacationData : vacation
-      )));
+      ));
+      vacationArray.sort((a,b) => new Date(a.startDate) - new Date(b.startDate));
+      setVacations(vacationArray);
     }
   }
 

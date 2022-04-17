@@ -25,7 +25,7 @@ export default function VacationPage({vacations, user}){
     } catch (err) {
       navigate('/dashboard');
     }
-  },[]);
+  },[params.id]);
 
   return(
     <div className="main grid DashboardPage">

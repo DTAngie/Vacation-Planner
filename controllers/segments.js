@@ -80,7 +80,8 @@ async function getOne(req, res) {
     });
     const profile = await Profile.findByPk(req.user.profile.id, {include: Vacation});
     if(profile.isOnVacation(segment.vacation.id)) {
-      res.json({segment});
+      const isOwner = profile.isVacationOwner(segment.vacation.id);
+      res.json({segment, isOwner});
     } else {
       res.status(401).json();
     }

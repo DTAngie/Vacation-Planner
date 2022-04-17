@@ -9,7 +9,7 @@ const Activity = sequelize.define('activity', {
     defaultValue: DataTypes.UUIDV4
   },
   date: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false
   },
   time: DataTypes.TIME,

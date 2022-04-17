@@ -17,11 +17,11 @@ const Vacation = sequelize.define('vacation', {
     min: 0
   },
   startDate: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     field: 'start_date'
   },
   endDate: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     field: 'end_date'
   },
   passportRequired: {

@@ -25,6 +25,13 @@ export default function VacationForm ({vacation, getError, getVacation, removeVa
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log(form.endDate)
+    if(new Date((form.startDate && form.endDate) && form.startDate) > new Date(form.endDate)) {
+      return getError('Start Date cannot be after End Date');
+    }
+    if(!form.startDate && form.endDate) {
+      return getError('Start Date must be provided if End Date is.')
+    }
     try {
       let data;
       if(vacation) {
@@ -32,11 +39,11 @@ export default function VacationForm ({vacation, getError, getVacation, removeVa
         getVacation(data.vacation)
       } else {
         data = await vacationService.create(form);
+        console.log(data)
         getVacation(data.vacation, true);
       }
       navigate(`/vacations/${data.vacation.id}`);
     } catch (err) {
-      console.log(err)
       if(err.message === "401") {
         getError('Only vacation owners can modify vacation details.');
       } else if (err.message === '400'){
@@ -68,7 +75,9 @@ export default function VacationForm ({vacation, getError, getVacation, removeVa
       setForm({
         name: vacation.name,
         budget: vacation.budget,
-        passportRequired: vacation.passportRequired
+        passportRequired: vacation.passportRequired,
+        startDate: vacation.startDate,
+        endDate: vacation.endDate
       });
     } else {
       setForm({

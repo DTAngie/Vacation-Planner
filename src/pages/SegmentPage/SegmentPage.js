@@ -6,6 +6,7 @@ import segmentService from '../../utils/segmentService';
 
 export default function SegmentPage({vacations}){
   const [segment, setSegment] = useState({});
+  const [isOwner, setIsOwner] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -13,10 +14,10 @@ export default function SegmentPage({vacations}){
       try {
         const data = await segmentService.getOne(params.id, params.segmentId);
         setSegment(data.segment);
+        setIsOwner(data.isOwner)
       } catch (err){
         navigate('/dashboard');
       }
-    // }
   },[]);
 
   return (
@@ -24,7 +25,7 @@ export default function SegmentPage({vacations}){
      <LeftNavigation vacations={vacations} />
      <div className="content">
       {Object.keys(segment).length > 0 ?
-        <SegmentDetail segment={segment}/>
+        <SegmentDetail segment={segment} isOwner={isOwner} />
         :
         ""  
       }

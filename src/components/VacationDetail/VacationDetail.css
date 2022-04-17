@@ -13,6 +13,7 @@
 .VacationDetail .card .left {
   width: 65%;
   display: inline-block;
+  vertical-align: top;
 }
 
 .VacationDetail .card .right {

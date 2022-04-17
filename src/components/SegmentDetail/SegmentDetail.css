@@ -1,0 +1,22 @@
+.SegmentDetail a {
+color:rgb(131, 177, 161);
+font-weight: bold;
+font-size: 1em;
+ }
+
+.SegmentDetail .card h3 {
+  color: #5676b3;
+  margin-bottom: 5px;
+  font-size: 1.3em;
+}
+
+.SegmentDetail .card .left {
+  width: 65%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.SegmentDetail .card .right {
+  width: 30%;
+  display: inline-block;
+}
