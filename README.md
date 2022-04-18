@@ -5,7 +5,7 @@ Plan your vacation down to the day, stick your to budget, and share with family 
 
 <br>
 
-This vacation planner is a small project that I built to learn how to put together a PERN stack. I opted not to use Sequelize CLI for database migration and seeding, so the SQL database script is in the sqlMigration.txt file.
+This vacation planner is a small project that I built to learn how to put together a PERN stack. It includes 1:1, 1:m and M:M relationships. I opted not to use Sequelize CLI for database migration and seeding, so the SQL database script is in the sqlMigration.txt file.
 
 <br>
 
@@ -24,3 +24,4 @@ Sequelize ORM
 - Refactor the routing to allow shorter urls and more dependency on state
 - Prevent spamming of share function, by allowing users to accept share requests
 - Add delete confirmation inside modals
+- Implement mobile view
