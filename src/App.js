@@ -63,7 +63,7 @@ function App() {
     } catch (err) {
       navigate('/login');
     }
-  },[]);
+  },[user]);
 
   return (
     <div className="App">

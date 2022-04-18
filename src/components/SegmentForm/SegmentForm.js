@@ -76,11 +76,11 @@ export default function SegmentForm({vacationId, segment, getError}) {
         <label htmlFor="segment-number">Segment Number</label>
         <input type="number" name="number" id="segment-number" placeholder="e.g. 1 for the first stop" onChange={handleChange} defaultValue={segment?.number ? segment.number : ''} />
         <label htmlFor="city">City</label>
-        <input type="text" name="city" id="city" placeholder="city" onChange={handleChange} defaultValue={segment?.city ? segment.city : ''} />
+        <input type="text" name="city" id="city" placeholder="City" onChange={handleChange} defaultValue={segment?.city ? segment.city : ''} />
         <label htmlFor="state">State, if applicable</label>
-        <input type="text" name="state" id="state" placeholder="state" onChange={handleChange} defaultValue={segment?.state ? segment.state : ''} />
+        <input type="text" name="state" id="state" placeholder="State" onChange={handleChange} defaultValue={segment?.state ? segment.state : ''} />
         <label htmlFor="country">Country</label>
-        <input type="text" name="country" id="country" placeholder="country" onChange={handleChange} defaultValue={segment?.country ? segment.country : ''} />
+        <input type="text" name="country" id="country" placeholder="Country" onChange={handleChange} defaultValue={segment?.country ? segment.country : ''} />
         <div className="btn-container">
           <button className="submit-btn" disabled={invalidForm} type="submit">Submit</button>
           <button className="cancel-btn" type="button" onClick={handleBack}>Cancel</button>

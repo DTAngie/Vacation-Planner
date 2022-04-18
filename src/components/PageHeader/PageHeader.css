@@ -4,6 +4,9 @@
   padding: 20px 30px;
   box-shadow: inset 15px -15px 29px #6f9689,
   inset -15px 15px 29px #97ccb9;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
 }
 
 .header h1, .header ul {

@@ -45,11 +45,11 @@ export default function SignupForm(props) {
   return(
     <form className="SignupForm" onSubmit={handleSubmit} >
       <label htmlFor="email">Email Address</label>
-      <input type="email" name="email" id="email" placeholder="email" onChange={handleChange} required />
+      <input type="email" name="email" id="email" placeholder="Email" onChange={handleChange} required />
       <label htmlFor="password">Password</label>
-      <input type="password" name="password" id="password" placeholder="password" onChange={handleChange} required />
+      <input type="password" name="password" id="password" placeholder="Password" onChange={handleChange} required />
       <label htmlFor="passwordConf">Confirm password</label>
-      <input type="password" name="passwordConf" id="passwordConf" placeholder="confirm password" onChange={handleChange} required />
+      <input type="password" name="passwordConf" id="passwordConf" placeholder="Confirm password" onChange={handleChange} required />
       <button disabled={invalidForm} type="submit">Sign up</button>
     </form>
   );

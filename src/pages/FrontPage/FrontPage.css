@@ -1,0 +1,16 @@
+.FrontPage.main {
+  background-image: url('../../../public/assets/images/travellingbus.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100vh;
+  padding: 0;
+}
+
+.FrontPage.main .content {
+  background-color: rgba(255,255,255, 0.25);
+  width: 35%;
+  margin-top: 150px;
+  margin-left: 50px;
+  padding: 20px;
+  position: absolute;
+}

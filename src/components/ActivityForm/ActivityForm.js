@@ -86,15 +86,15 @@ export default function ActivityForm({vacationId, segmentId, activity, getError}
     <div className='ActivityForm'>
       <form onSubmit={handleSubmit}>
         <label htmlFor="date">Date</label>
-        <input type="date" name="date" id="date" placeholder="date" onChange={handleChange} defaultValue={activity?.date ? activity.date : ''} required />
+        <input type="date" name="date" id="date" placeholder="Date" onChange={handleChange} defaultValue={activity?.date ? activity.date : ''} required />
         <label htmlFor="time">Time</label>
-        <input type="time" name="time" id="time" placeholder="time" onChange={handleChange} defaultValue={activity?.time ? activity.time : ''} />
+        <input type="time" name="time" id="time" placeholder="Time" onChange={handleChange} defaultValue={activity?.time ? activity.time : ''} />
         <label htmlFor="name">Activity</label>
-        <input type="text" name="name" id="name" placeholder="activity" onChange={handleChange} defaultValue={activity?.name ? activity.name : ''} required />
+        <input type="text" name="name" id="name" placeholder="Activity" onChange={handleChange} defaultValue={activity?.name ? activity.name : ''} required />
         <label htmlFor="address">Address</label>
-        <input type="text" id="address" name="address" placeholder="address" onChange={handleChange} defaultValue={activity?.address ? activity.address : ''} />
+        <input type="text" id="address" name="address" placeholder="Address" onChange={handleChange} defaultValue={activity?.address ? activity.address : ''} />
         <label htmlFor="cost">Total Cost</label>
-        <input type="number" min="0" name="cost" id="cost" placeholder="cost for all travellers" onChange={handleChange} defaultValue={activity?.cost ? activity.cost: ''} />
+        <input type="number" min="0" name="cost" id="cost" placeholder="Cost for all travellers" onChange={handleChange} defaultValue={activity?.cost ? activity.cost: ''} />
         <label htmlFor="ticketsPurchased">Tickets Purchased?</label>
         <input type="checkbox" name="ticketsPurchased" id="ticketsPurchased" onChange={handleToggle} defaultChecked={activity?.ticketsPurchased} />
         <div className="btn-container">

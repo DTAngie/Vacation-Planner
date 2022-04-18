@@ -38,7 +38,7 @@ export default function ProfileForm({user, getError, updateProfile}) {
     <div className="ProfileForm">
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
-        <input type="text" name="username" id="username" placeholder="username" onChange={handleChange} defaultValue={user?.username ? user.username : ''} />
+        <input type="text" name="username" id="username" placeholder="Username" onChange={handleChange} defaultValue={user?.username ? user.username : ''} />
         <button className="submit-btn" type="submit" disabled={invalidForm}>Submit</button>
       </form>
     </div>

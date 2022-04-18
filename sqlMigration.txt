@@ -1,0 +1,57 @@
+CREATE TABLE users (
+  id UUID PRIMARY KEY,
+  email varchar(100) UNIQUE NOT NULL,
+  password varchar(100) NOT NULL,
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE profiles (
+  id UUID PRIMARY KEY,
+  username varchar(100) NOT NULL,
+  user_id UUID references users(id) ON DELETE CASCADE,
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE vacations (
+  id UUID PRIMARY KEY,
+  name varchar(100) NOT NULL,
+  budget numeric(11, 2) CHECK(budget >= 0),
+  passport_required boolean,
+  start_date date,
+  end_date date,
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE segments (
+  id UUID PRIMARY KEY,
+  city varchar(100) NOT NULL,
+  state varchar(3),
+  number int CHECK(number >= 1) NOT NULL,
+  country varchar(100),
+  cost numeric(11,2),
+  vacation_id UUID references vacations(id) ON DELETE CASCADE,
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE activities (
+  id UUID PRIMARY KEY,
+  date date NOT NULL,
+  time time,
+  name varchar(200) NOT NULL,
+  address varchar(200),
+  cost numeric(11, 2) CHECK(cost >= 0),
+  tickets_purchased boolean,
+  segment_id UUID references segments(id) ON DELETE CASCADE,
+  "createdAt" timestamp NOT NULL,
+  "updatedAt" timestamp NOT NULL
+);
+
+CREATE TABLE profiles_vacations (
+  vacation_id UUID references vacations(id) ON DELETE CASCADE,
+  profile_id UUID references profiles(id) ON DELETE CASCADE,
+  is_owner boolean
+);

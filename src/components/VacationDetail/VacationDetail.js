@@ -52,7 +52,7 @@ export default function VacationDetail({vacation, isOwner, user, getError}){
 
   useEffect(()=>{
     setVacationers(vacation.profiles);
-  }, []);
+  }, [vacation]);
 
   return(
     <div className='VacationDetail'>
@@ -80,24 +80,27 @@ export default function VacationDetail({vacation, isOwner, user, getError}){
           </ul>
         </div>
         <div className='vacationers'>
-          <p>Vacationing with:</p>
-          <ul>
-            { vacationers ? vacationers.map(friend => {
-              if(friend.id !== user.profile.id) {
-                return (
-                  <li key={friend.id}>
-                    <p>{friend.username}</p>
-                    {isOwner ? <p className="remove" id={friend.id} onClick={handleRemoveFriend}>Remove</p> : ""}
-                  </li>
-                );
-              } else {
-                return "";
-              }
-            })
+            { vacationers?.length > 1 ? 
+            <>
+              <p>Vacationing with:</p>
+              <ul>
+                {vacationers.map(friend => {
+                  if(friend.id !== user.profile.id) {
+                    return (
+                      <li key={friend.id}>
+                        <p>{friend.username}</p>
+                        {isOwner ? <p className="remove" id={friend.id} onClick={handleRemoveFriend}>Remove</p> : ""}
+                      </li>
+                      );
+                    } else {
+                      return "";
+                    }
+                })}
+              </ul>
+            </>
             :
-            ""
+              ""
             }
-          </ul>
         </div>
         <div className='divider'></div>
         <SegmentList vacation={vacation} />
