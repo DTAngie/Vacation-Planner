@@ -3,7 +3,6 @@ import userService from '../../utils/userService';
 import { useNavigate } from 'react-router-dom';
 import './SignUpForm.css';
 
-
 export default function SignupForm(props) {
   const [form, setForm] = useState({});
   const [invalidForm, setInvalidForm] = useState(true);

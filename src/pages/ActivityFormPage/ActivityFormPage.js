@@ -13,7 +13,6 @@ export default function ActivityFormPage({vacations}){
   const params = useParams();
   const navigate = useNavigate();
 
-
   const activityForm = () => params.activityId ?
       <>
         <h3>{activity?.segment.vacation.name} - {activity?.segment.city}</h3>
@@ -42,7 +41,6 @@ export default function ActivityFormPage({vacations}){
     } catch (err){
       navigate('/dashboard');
     }
- 
   },[])
 
   return (

@@ -24,7 +24,7 @@ export default function ActivityList({segment}){
               <p>{new Date(`${activity.date}T00:00:00`).toDateString()}</p>
               <p id="activity-name">{activity.name}</p>
             </div>
-            <div className="activity-content">
+            <div>
               <p>{convertTime(activity.time)}</p>
               <p>Address: {activity.address}</p>
               <p>Total Cost: {new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(activity.cost)}</p>

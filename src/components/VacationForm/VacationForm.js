@@ -25,7 +25,6 @@ export default function VacationForm ({vacation, getError, getVacation, removeVa
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(form.endDate)
     if(new Date((form.startDate && form.endDate) && form.startDate) > new Date(form.endDate)) {
       return getError('Start Date cannot be after End Date');
     }
@@ -39,7 +38,6 @@ export default function VacationForm ({vacation, getError, getVacation, removeVa
         getVacation(data.vacation)
       } else {
         data = await vacationService.create(form);
-        console.log(data)
         getVacation(data.vacation, true);
       }
       navigate(`/vacations/${data.vacation.id}`);

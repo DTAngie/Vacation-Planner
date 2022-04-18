@@ -22,14 +22,14 @@ export default function SegmentPage({vacations}){
 
   return (
     <div className="main grid SegmentPage">
-     <LeftNavigation vacations={vacations} />
-     <div className="content">
-      {Object.keys(segment).length > 0 ?
-        <SegmentDetail segment={segment} isOwner={isOwner} />
+      <LeftNavigation vacations={vacations} />
+      <div className="content">
+        {Object.keys(segment).length > 0 ?
+          <SegmentDetail segment={segment} isOwner={isOwner} />
         :
-        ""  
-      }
-     </div>
-  </div>
+          ""  
+        }
+      </div>
+    </div>
   );
 }

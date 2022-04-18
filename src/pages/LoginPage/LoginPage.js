@@ -15,7 +15,6 @@ export default function LoginPage(props){
       <h2>Sign up</h2>
       {error ? <ErrorMessage error={error} /> : ""}
       <LoginForm getError={getError} handleSignUpOrLogin={props.handleSignUpOrLogin} />
-      
     </div>
   );
 }

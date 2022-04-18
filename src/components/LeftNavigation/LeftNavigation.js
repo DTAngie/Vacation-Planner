@@ -12,13 +12,13 @@ export default function LeftNavigation({vacations}){
       </ul>
       <ul id="vacations">
         {Object.keys(vacations).length > 0 ? 
-        vacations.map(vacation => (
-          <li key={vacation.id}>
-            <Link to={`/vacations/${vacation.id}`}>{vacation.name}</Link>
-          </li>
-        ))
+          vacations.map(vacation => (
+            <li key={vacation.id}>
+              <Link to={`/vacations/${vacation.id}`}>{vacation.name}</Link>
+            </li>
+          ))
         :
-        ""
+          ""
         }
       </ul>
     </div>

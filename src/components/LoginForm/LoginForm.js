@@ -31,7 +31,6 @@ export default function LoginForm(props){
     }
   }
 
-
   useEffect(()=>{
     if(form.email && form.password){
       setInvalidForm(false);

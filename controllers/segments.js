@@ -9,7 +9,6 @@ module.exports = {
   delete: deleteOne
 }
 
-
 async function create(req, res) {
   const { city, state, country, number } = req.body;
   try {
@@ -63,7 +62,7 @@ async function update(req, res) {
 }
 
 async function getOne(req, res) {
-    try {
+  try {
     const segment = await Segment.findByPk(req.params.segmentId, { 
       include: [
         {

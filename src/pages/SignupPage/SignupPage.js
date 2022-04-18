@@ -3,7 +3,6 @@ import SignupForm from '../../components/SignupForm/SignupForm';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './SignupPage.css';
 
-
 export default function SignupPage(props){
   const [error, setError] = useState('');
 

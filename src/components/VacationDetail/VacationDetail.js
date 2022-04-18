@@ -81,23 +81,23 @@ export default function VacationDetail({vacation, isOwner, user, getError}){
         </div>
         <div className='vacationers'>
             { vacationers?.length > 1 ? 
-            <>
-              <p>Vacationing with:</p>
-              <ul>
-                {vacationers.map(friend => {
-                  if(friend.id !== user.profile.id) {
-                    return (
-                      <li key={friend.id}>
-                        <p>{friend.username}</p>
-                        {isOwner ? <p className="remove" id={friend.id} onClick={handleRemoveFriend}>Remove</p> : ""}
-                      </li>
-                      );
-                    } else {
-                      return "";
-                    }
-                })}
-              </ul>
-            </>
+              <>
+                <p>Vacationing with:</p>
+                <ul>
+                  {vacationers.map(friend => {
+                    if(friend.id !== user.profile.id) {
+                      return (
+                        <li key={friend.id}>
+                          <p>{friend.username}</p>
+                          {isOwner ? <p className="remove" id={friend.id} onClick={handleRemoveFriend}>Remove</p> : ""}
+                        </li>
+                        );
+                      } else {
+                        return "";
+                      }
+                  })}
+                </ul>
+              </>
             :
               ""
             }

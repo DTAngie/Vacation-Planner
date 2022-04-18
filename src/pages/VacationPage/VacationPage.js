@@ -5,7 +5,6 @@ import VacationDetail from "../../components/VacationDetail/VacationDetail";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import vacationService from "../../utils/vacationService";
 
-
 export default function VacationPage({vacations, user}){
   const [vacation, setVacation] = useState({});
   const [isOwner, setIsOwner] = useState(false);
@@ -34,7 +33,7 @@ export default function VacationPage({vacations, user}){
       {error ? <ErrorMessage error={error} /> : ""}
         {Object.keys(vacation).length > 0 ?
           <VacationDetail vacation={vacation} isOwner={isOwner} user={user} getError={getError} />
-          :
+        :
           ""  
         }
       </div>

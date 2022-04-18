@@ -29,5 +29,4 @@ const ProfileVacation = sequelize.define('profilesVacations', {
   timestamps: false
 });
 
-
 module.exports = ProfileVacation

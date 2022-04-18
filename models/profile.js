@@ -1,7 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Vacation = require('./vacation');
-const ProfileVacation = require('./profilesVacations');
 
 const Profile = sequelize.define('profile', {
   id: {
